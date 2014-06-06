@@ -18,7 +18,7 @@ fi
 
 echo "Running tests for new entity: $ENTITY_NAME"
 
-python -c "import resttest; resttest.main('$1', 'metadata.yaml', '$LOGGING_LEVEL')" 2>&1 | tee metadata.log
+python -c "import resttest; resttest.main('$1', 'metadata.yaml', '$LOGGING_LEVEL')" 2>&1
 
 #unset ENTITY_NAME
 #unset ENTITY_VERSION_1

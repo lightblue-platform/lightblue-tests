@@ -18,7 +18,7 @@ fi
 
 echo "Running tests for entity: $ENTITY_NAME"
 
-python -c "import resttest; resttest.main('$1', 'crud.yaml', '$LOGGING_LEVEL')" 2>&1 | tee crud.log
+python -c "import resttest; resttest.main('$1', 'crud.yaml', '$LOGGING_LEVEL')" 2>&1
 
 #unset ENTITY_NAME
 #unset ENTITY_VERSION
