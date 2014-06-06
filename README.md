@@ -44,16 +44,16 @@ With Arquillian and using in-memory databases there is a lot that can be tested 
 
 ## How do you define success?
 For a functional test to be successful the API called must:
-1. not change data in any way to impact production systes
-1. return an expected HTTP code
-1. return well formed JSON
-1. pass all field level verifications for the response
+* not change data in any way to impact production systes
+* return an expected HTTP code
+* return well formed JSON
+* pass all field level verifications for the response
 
 For a load test to be successful:
-1. meet all the requirements of a functional test
-1. performance as measured over a pervious test execution set degrade more than X stdev [1]
+* meet all the requirements of a functional test
+* performance as measured over a pervious test execution set degrade more than X stdev [1]
 
 [1] previous test set to verify against and acceptable deviation are not defined yet
 
 For a web app to be successful:
-1. TBD
+* TBD
