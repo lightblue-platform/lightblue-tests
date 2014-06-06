@@ -3,21 +3,37 @@ lightblue-tests
 
 Functional and load tests for lightblue
 
-# Structure
-Each directory at the top level represents a type of test.
-* functional
-* load
-
-## Functional Tests
+# Functional Tests
 Black box (using only external interface) testing to verify the evaluated software is following the specifications.  For lightblue that means testing the crud and metadat services
 
-## Load Tests
+## Setup
+Assumes python 2.6 is installed.  To install dependencies:
+```
+sudo su -
+easy_install argparse pyyaml pycurl
+exit
+```
+
+Install pyresttest:
+```
+git clone https://github.com/lightblue-platform/pyresttest.git
+cd pyresttest
+sudo python setup.sh install
+```
+
+## Run All Tests
+To run tests against metadata and crud services deployed on the same host:
+```
+cd functional
+./all.sh <base URL> warning
+```
+Note the last argument suppresses logging which is set to debug by default at the time of writing this.
+
+# Load Tests
 Testing the software to understand it limits, making sure that an anticipated peak will be supported and the software will behave correctly. It also gives support to determine the capability testing and then stress testing.
 
-## Web App Tests
+# Web App Tests
 Testing the management application interfaces.  Some of the testing might overlap with functional tests but the core intent is to verify the applications function correctly.
-
-# FAQ
 
 ## How are functional tests different from unit tests?
 With Arquillian and using in-memory databases there is a lot that can be tested about how the applications behave before being deployed.  But there are some things you want to check against a deployed application:
