@@ -1,9 +1,9 @@
 #!/bin/sh
 
-pushd metadata
+pushd metadata > /dev/null
 . ./metadata.sh $@
-popd
-pushd crud
+popd > /dev/null
+pushd crud > /dev/null
 ./crud.sh $@
-popd
+popd > /dev/null
 
