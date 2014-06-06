@@ -18,7 +18,7 @@ Install pyresttest:
 ```
 git clone https://github.com/lightblue-platform/pyresttest.git
 cd pyresttest
-sudo python setup.sh install
+sudo python setup.py install
 ```
 
 ## Run All Tests
