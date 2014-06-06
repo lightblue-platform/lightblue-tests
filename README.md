@@ -10,6 +10,7 @@ Black box (using only external interface) testing to verify the evaluated softwa
 Assumes python 2.6 is installed.  To install dependencies:
 ```
 sudo su -
+yum install -y python-setuptools
 easy_install argparse pyyaml pycurl
 exit
 ```
