@@ -1,0 +1,245 @@
+# Tests of crud service.
+# Notes on json validation:
+#   must supply count or expected
+#   if supply expected can optionally specify operator
+#   operator defaults to "eq", available values are: abs contains eq ge gt index inv invert le lt ne neg not pos truth
+#   operator is applied as: <actual> <operator> <expected>
+---
+- config:
+    - testset: "CRUD Test: Find with POST"
+    - headers: {Content-Type: application/json}
+
+- test:
+    - name: "Find"
+    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: POST
+    - headers: {Content-Type: application/json}
+    - group: "crud/find/POST"
+    - body: '{
+        "object_type":"${ENTITY_NAME}",
+        "returning": { "field":"*","recursive":1},
+        "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
+    }'
+    - stop_on_failure: True
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
+        - {type: "json", query: "processed/_id", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/login", operator: "eq", expected: "bserdar"}
+        - {type: "json", query: "processed/password", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/contactPermissions", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/personalInfo", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites", operator: "count", expected: 2}
+        - {type: "json", query: "processed/sites#", operator: "eq", expected: 2}
+        - {type: "json", query: "processed/sites/0/streetAddress", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites/0/contactInfo", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites/0/usages", operator: "exists", expected: ""}
+
+- test:
+    - name: "Find with Projection: Basic"
+    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: POST
+    - headers: {Content-Type: application/json}
+    - group: "crud/find/POST"
+    - body: '{
+        "object_type":"${ENTITY_NAME}",
+        "returning": [ { "field":"login" }, { "field":"sites" }, { "field":"sites#" } ],
+        "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
+    }'
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
+        - {type: "json", query: "processed/_id", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/login", operator: "eq", expected: "bserdar"}
+        - {type: "json", query: "processed/password", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/contactPermissions", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/personalInfo", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/sites", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites#", operator: "gt", expected: 0}
+        - {type: "json", query: "processed/sites/0/streetAddress", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites/0/contactInfo", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites/0/usages", operator: "exists", expected: ""}
+
+- test:
+    - name: "Find with Projection: All Site Elements"
+    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: POST
+    - headers: {Content-Type: application/json}
+    - group: "crud/find/POST"
+    - body: '{
+        "object_type":"${ENTITY_NAME}",
+        "returning": [ { "field":"login" }, { "field":"sites.*" }, { "field":"sites#" } ],
+        "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
+    }'
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
+        - {type: "json", query: "processed/_id", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/login", operator: "eq", expected: "bserdar"}
+        - {type: "json", query: "processed/password", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/contactPermissions", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/personalInfo", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/sites", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites#", operator: "gt", expected: 0}
+        - {type: "json", query: "processed/sites/0/streetAddress", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/sites/0/contactInfo", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/sites/0/usages", operator: "empty", expected: ""}
+
+- test:
+    - name: "Find with Projection: All Site Elements and First Level Content"
+    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: POST
+    - headers: {Content-Type: application/json}
+    - group: "crud/find/POST"
+    - body: '{
+        "object_type":"${ENTITY_NAME}",
+        "returning": [ { "field":"login" }, { "field":"sites.*.*" }, { "field":"sites#" } ],
+        "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
+    }'
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
+        - {type: "json", query: "processed/_id", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/login", operator: "eq", expected: "bserdar"}
+        - {type: "json", query: "processed/password", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/contactPermissions", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/personalInfo", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/sites", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites#", operator: "gt", expected: 0}
+        - {type: "json", query: "processed/sites/0/streetAddress", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites/0/contactInfo", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites/0/usages", operator: "exists", expected: ""}
+
+- test:
+    - name: "Find with Projection: All Sites Recursively"
+    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: POST
+    - headers: {Content-Type: application/json}
+    - group: "crud/find/POST"
+    - body: '{
+        "object_type":"${ENTITY_NAME}",
+        "returning": [ { "field":"login" }, { "field":"sites.*", "recursive":"true" }, { "field":"sites#" } ],
+        "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
+    }'
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
+        - {type: "json", query: "processed/_id", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/login", operator: "eq", expected: "bserdar"}
+        - {type: "json", query: "processed/password", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/contactPermissions", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/personalInfo", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/sites", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites#", operator: "gt", expected: 0}
+        - {type: "json", query: "processed/sites/0/streetAddress", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites/0/streetAddress/city", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites/0/contactInfo", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites/0/contactInfo/emailAddress", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites/0/usages", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites/0/usages#", operator: "gt", expected: 0}
+        - {type: "json", query: "processed/sites/0/usages/0/usage", operator: "exists", expected: ""}
+
+- test:
+    - name: "Usages of the First Site"
+    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: POST
+    - headers: {Content-Type: application/json}
+    - group: "crud/find/POST"
+    - body: '{
+        "object_type":"${ENTITY_NAME}",
+        "returning": [ { "field":"login" }, { "field":"sites.0.usages.*", "recursive":"true" }, { "field":"sites#" } ],
+        "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
+    }'
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
+        - {type: "json", query: "processed/_id", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/login", operator: "eq", expected: "bserdar"}
+        - {type: "json", query: "processed/password", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/contactPermissions", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/personalInfo", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/sites", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites#", operator: "gt", expected: 0}
+        - {type: "json", query: "processed/sites", operator: "count", expected: 1}
+        - {type: "json", query: "processed/sites/0/streetAddress", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/sites/0/contactInfo", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/sites/0/usages", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites/0/usages/0/usage", operator: "exists", expected: ""}
+
+- test:
+    - name: "First Usages of All Sites"
+    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: POST
+    - headers: {Content-Type: application/json}
+    - group: "crud/find/POST"
+    - body: '{
+        "object_type":"${ENTITY_NAME}",
+        "returning": [ { "field":"login" }, { "field":"sites.*.usages.0.*", "recursive":"true" }, { "field":"sites#" } ],
+        "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
+    }'
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
+        - {type: "json", query: "processed/_id", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/login", operator: "eq", expected: "bserdar"}
+        - {type: "json", query: "processed/password", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/contactPermissions", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/personalInfo", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/sites", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites#", operator: "gt", expected: 0}
+        - {type: "json", query: "processed/sites/0/streetAddress", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/sites/0/contactInfo", operator: "empty", expected: ""}
+        - {type: "json", query: "processed/sites/0/usages", operator: "exists", expected: ""}
+        - {type: "json", query: "processed/sites/0/usages", operator: "count", expected: 1}
+        - {type: "json", query: "processed/sites/0/usages/0/usage", operator: "exists", expected: ""}
+
+- test:
+    - name: "All NC Users Sorted by Login: Ascending"
+    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: POST
+    - headers: {Content-Type: application/json}
+    - group: "crud/find/POST"
+    - body: '{
+        "object_type":"${ENTITY_NAME}",
+        "returning": { "field":"login" },
+        "query":  { "field":"sites.*.streetAddress.state", "op":"$eq", "rvalue":"NC" },
+        "sort": { "login":"$asc" },
+        "range": [0, 10]
+    }'
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 2}
+        - {type: "json", query: "processed", operator: "count", expected: 2}
+        - {type: "json", query: "processed/0/login", operator: "eq", expected: "bserdar"}
+        - {type: "json", query: "processed/1/login", operator: "eq", expected: "nmalik"}
+
+- test:
+    - name: "All NC Users Sorted by Login: Descending"
+    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: POST
+    - headers: {Content-Type: application/json}
+    - group: "crud/find/POST"
+    - body: '{
+        "object_type":"${ENTITY_NAME}",
+        "returning": { "field":"login" },
+        "query":  { "field":"sites.*.streetAddress.state", "op":"$eq", "rvalue":"NC" },
+        "sort": { "login":"$desc" },
+        "range": [0, 10]
+    }'
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 2}
+        - {type: "json", query: "processed", operator: "count", expected: 2}
+        - {type: "json", query: "processed/0/login", operator: "eq", expected: "nmalik"}
+        - {type: "json", query: "processed/1/login", operator: "eq", expected: "bserdar"}
+

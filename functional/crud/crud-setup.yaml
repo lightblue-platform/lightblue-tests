@@ -1,0 +1,32 @@
+# Tests of crud service.
+# Notes on json validation:
+#   must supply count or expected
+#   if supply expected can optionally specify operator
+#   operator defaults to "eq", available values are: abs contains eq ge gt index inv invert le lt ne neg not pos truth
+#   operator is applied as: <actual> <operator> <expected>
+---
+- config:
+    - testset: "CRUD Test: Setup"
+    - headers: {Content-Type: application/json}
+
+- test: # verify entity exists
+    - name: "Verify Entity: /metadata/entity/version"
+    - url: "/metadata/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - headers: {Content-Type: application/json}
+    - group: "metadata/find"
+    - validators:
+        - {type: "json", query: "object_type", operator: "empty", expected: ""}
+
+- test:
+    - name: "Create Entities"
+    - url: "/data/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: PUT
+    - headers: {Content-Type: application/json}
+    - group: "crud/insert"
+    - body: {file: "test-crud-insert.json"}
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 2}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
+        - {type: "json", query: "processed/_id", operator: "exists", expected: ""}
+

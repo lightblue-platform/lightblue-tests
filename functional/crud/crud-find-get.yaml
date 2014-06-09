@@ -6,36 +6,15 @@
 #   operator is applied as: <actual> <operator> <expected>
 ---
 - config:
-    - testset: "CRUD Test"
+    - testset: "CRUD Test: Find with GET"
     - headers: {Content-Type: application/json}
-
-- test: # verify entity exists
-    - name: "Verify Entity: /metadata/entity/version"
-    - url: "/metadata/${ENTITY_NAME}/${ENTITY_VERSION}"
-    - headers: {Content-Type: application/json}
-    - group: "metadata/find"
-    - validators:
-        - {type: "json", query: "object_type", operator: "empty", expected: ""}
-
-- test:
-    - name: "Create Entities"
-    - url: "/data/${ENTITY_NAME}/${ENTITY_VERSION}"
-    - method: PUT
-    - headers: {Content-Type: application/json}
-    - group: "crud/insert"
-    - body: {file: "test-crud-insert.json"}
-    - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 2}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
-        - {type: "json", query: "processed/_id", operator: "exists", expected: ""}
 
 - test:
     - name: "Simple Find"
     - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar"
     - method: GET
     - headers: {Content-Type: application/json}
-    - group: "crud/find"
+    - group: "crud/find/GET"
     - validators:
         - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
         - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
@@ -57,7 +36,7 @@
     - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites:1,sites#:1"
     - method: GET
     - headers: {Content-Type: application/json}
-    - group: "crud/find"
+    - group: "crud/find/GET"
     - validators:
         - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
         - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
@@ -78,7 +57,7 @@
     - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites.*:1,sites#:1"
     - method: GET
     - headers: {Content-Type: application/json}
-    - group: "crud/find"
+    - group: "crud/find/GET"
     - validators:
         - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
         - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
@@ -99,7 +78,7 @@
     - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites.*.*:1,sites#:1"
     - method: GET
     - headers: {Content-Type: application/json}
-    - group: "crud/find"
+    - group: "crud/find/GET"
     - validators:
         - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
         - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
@@ -120,7 +99,7 @@
     - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites.*:1r,sites#:1"
     - method: GET
     - headers: {Content-Type: application/json}
-    - group: "crud/find"
+    - group: "crud/find/GET"
     - validators:
         - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
         - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
@@ -145,7 +124,7 @@
     - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites.0.usages.*:1r,sites#:1"
     - method: GET
     - headers: {Content-Type: application/json}
-    - group: "crud/find"
+    - group: "crud/find/GET"
     - validators:
         - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
         - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
@@ -168,7 +147,7 @@
     - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites#:1,sites.*.usages.0.*:1r"
     - method: GET
     - headers: {Content-Type: application/json}
-    - group: "crud/find"
+    - group: "crud/find/GET"
     - validators:
         - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
         - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
@@ -191,7 +170,7 @@
     - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=sites.*.streetAddress.state:NC&P=login:1&S=login:a&from=0&to=10"
     - method: GET
     - headers: {Content-Type: application/json}
-    - group: "crud/find"
+    - group: "crud/find/GET"
     - validators:
         - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
         - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
@@ -205,7 +184,7 @@
     - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=sites.*.streetAddress.state:NC&P=login:1&S=login:d&from=0&to=10"
     - method: GET
     - headers: {Content-Type: application/json}
-    - group: "crud/find"
+    - group: "crud/find/GET"
     - validators:
         - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
         - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
