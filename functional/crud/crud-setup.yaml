@@ -14,6 +14,7 @@
     - url: "/metadata/${ENTITY_NAME}/${ENTITY_VERSION}"
     - headers: {Content-Type: application/json}
     - group: "metadata/find"
+    - stop_on_failure: True
     - validators:
         - {type: "json", query: "object_type", operator: "empty", expected: ""}
 
@@ -23,6 +24,7 @@
     - method: PUT
     - headers: {Content-Type: application/json}
     - group: "crud/insert"
+    - stop_on_failure: True
     - body: {file: "test-crud-insert.json"}
     - validators:
         - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}

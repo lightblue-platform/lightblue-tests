@@ -20,7 +20,6 @@
         "returning": { "field":"*","recursive":1},
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
-    - stop_on_failure: True
     - validators:
         - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
         - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
