@@ -22,6 +22,7 @@ python -c "import resttest; resttest.main('$1', 'crud-setup.yaml', '$LOGGING_LEV
 python -c "import resttest; resttest.main('$1', 'crud-find-basic-get.yaml', '$LOGGING_LEVEL')" 2>&1
 python -c "import resttest; resttest.main('$1', 'crud-find-basic-post.yaml', '$LOGGING_LEVEL')" 2>&1
 python -c "import resttest; resttest.main('$1', 'crud-find-complex-post.yaml', '$LOGGING_LEVEL')" 2>&1
+python -c "import resttest; resttest.main('$1', 'crud-save.yaml', '$LOGGING_LEVEL')" 2>&1
 
 #unset ENTITY_NAME
 #unset ENTITY_VERSION

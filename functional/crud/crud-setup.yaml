@@ -8,6 +8,7 @@
 - config:
     - testset: "CRUD Test: Setup"
     - headers: {Content-Type: application/json}
+    - validator_query_delimiter: "."
 
 - test: # verify entity exists
     - name: "Verify Entity: /metadata/entity/version"
@@ -30,5 +31,5 @@
         - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
         - {type: "json", query: "modifiedCount", operator: "eq", expected: 2}
         - {type: "json", query: "matchCount", operator: "eq", expected: 0}
-        - {type: "json", query: "processed/_id", operator: "exists", expected: ""}
+        - {type: "json", query: "processed._id", operator: "exists", expected: ""}
 

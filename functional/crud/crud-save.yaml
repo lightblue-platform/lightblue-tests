@@ -1,0 +1,42 @@
+# Tests of crud service.
+# Notes on json validation:
+#   must supply count or expected
+#   if supply expected can optionally specify operator
+#   operator defaults to "eq", available values are: abs contains eq ge gt index inv invert le lt ne neg not pos truth
+#   operator is applied as: <actual> <operator> <expected>
+---
+- config:
+    - testset: "CRUD Test: Save"
+    - headers: {Content-Type: application/json}
+    - validator_query_delimiter: "."
+
+
+- test:
+    - name: "Save: fetch _id for save"
+    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=_id:1"
+    - method: GET
+    - headers: {Content-Type: application/json}
+    - group: "crud/find/GET"
+    - stop_on_failure: true
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
+        - {type: "json", query: "processed", operator: "exists", expected: ""}
+        - {type: "json", query: "processed._id", operator: "exists", expected: "", export_as: "ENTITY_ID"}
+
+- test:
+    - name: "Save: change last name"
+    - url: "/data/save/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: POST
+    - headers: {Content-Type: application/json}
+    - group: "crud/save/POST"
+    - stop_on_failure: true
+    - body: {file: "test-crud-save-bserdar.json"}
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 1}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
+        - {type: "json", query: "processed", operator: "exists", expected: ""}
+        - {type: "json", query: "processed", operator: "count", expected: 1}
+        - {type: "json", query: "processed._id", operator: "exists", expected: ""}
