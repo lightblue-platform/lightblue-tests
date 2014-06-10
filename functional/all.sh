@@ -8,6 +8,7 @@ if [ "x$1" == "x" ]; then
 fi
 
 # Global:
+INTERACTIVE="False"
 LOGGING_LEVEL="debug"
 if [ "x$2" != "x" ]; then
     LOGGING_LEVEL=$2
@@ -23,7 +24,7 @@ export ENTITY_VERSION="${ENTITY_VERSION_2}"
 
 echo "Running tests for new entity: $ENTITY_NAME"
 
-python -c "import resttest; resttest.main('$1', 'all.yaml', '$LOGGING_LEVEL')" 2>&1
+python -c "import resttest; args=dict(); args['url']='$1'; args['test']='all.yaml'; args['log']='$LOGGING_LEVEL'; args['interactive']=$INTERACTIVE; args['print_bodies']=$INTERACTIVE; resttest.main(args)" 2>&1
 
 #unset ENTITY_NAME
 #unset ENTITY_VERSION_1
