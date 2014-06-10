@@ -22,20 +22,20 @@
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
-        - {type: "json", query: "processed._id", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {type: "json", query: "processed.password", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.contactPermissions", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.personalInfo", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites", operator: "count", expected: 2}
-        - {type: "json", query: "processed.sites#", operator: "eq", expected: 2}
-        - {type: "json", query: "processed.sites.0.streetAddress", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites.0.contactInfo", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites.0.usages", operator: "exists", expected: ""}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 0}
+        - {query: "matchCount", operator: "eq", expected: 1}
+        - {query: "processed._id", operator: "exists", expected: ""}
+        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.password", operator: "exists", expected: ""}
+        - {query: "processed.contactPermissions", operator: "exists", expected: ""}
+        - {query: "processed.personalInfo", operator: "exists", expected: ""}
+        - {query: "processed.sites", operator: "exists", expected: ""}
+        - {query: "processed.sites", operator: "count", expected: 2}
+        - {query: "processed.sites#", operator: "eq", expected: 2}
+        - {query: "processed.sites.0.streetAddress", operator: "exists", expected: ""}
+        - {query: "processed.sites.0.contactInfo", operator: "exists", expected: ""}
+        - {query: "processed.sites.0.usages", operator: "exists", expected: ""}
 
 - test:
     - name: "Find with Projection: Basic"
@@ -49,19 +49,19 @@
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
-        - {type: "json", query: "processed._id", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {type: "json", query: "processed.password", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.contactPermissions", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.personalInfo", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.sites", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites#", operator: "gt", expected: 0}
-        - {type: "json", query: "processed.sites.0.streetAddress", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites.0.contactInfo", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites.0.usages", operator: "exists", expected: ""}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 0}
+        - {query: "matchCount", operator: "eq", expected: 1}
+        - {query: "processed._id", operator: "empty", expected: ""}
+        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.password", operator: "empty", expected: ""}
+        - {query: "processed.contactPermissions", operator: "empty", expected: ""}
+        - {query: "processed.personalInfo", operator: "empty", expected: ""}
+        - {query: "processed.sites", operator: "exists", expected: ""}
+        - {query: "processed.sites#", operator: "gt", expected: 0}
+        - {query: "processed.sites.0.streetAddress", operator: "exists", expected: ""}
+        - {query: "processed.sites.0.contactInfo", operator: "exists", expected: ""}
+        - {query: "processed.sites.0.usages", operator: "exists", expected: ""}
 
 - test:
     - name: "Find with Projection: All Site Elements"
@@ -75,19 +75,19 @@
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
-        - {type: "json", query: "processed._id", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {type: "json", query: "processed.password", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.contactPermissions", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.personalInfo", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.sites", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites#", operator: "gt", expected: 0}
-        - {type: "json", query: "processed.sites.0.streetAddress", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.sites.0.contactInfo", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.sites.0.usages", operator: "empty", expected: ""}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 0}
+        - {query: "matchCount", operator: "eq", expected: 1}
+        - {query: "processed._id", operator: "empty", expected: ""}
+        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.password", operator: "empty", expected: ""}
+        - {query: "processed.contactPermissions", operator: "empty", expected: ""}
+        - {query: "processed.personalInfo", operator: "empty", expected: ""}
+        - {query: "processed.sites", operator: "exists", expected: ""}
+        - {query: "processed.sites#", operator: "gt", expected: 0}
+        - {query: "processed.sites.0.streetAddress", operator: "empty", expected: ""}
+        - {query: "processed.sites.0.contactInfo", operator: "empty", expected: ""}
+        - {query: "processed.sites.0.usages", operator: "empty", expected: ""}
 
 - test:
     - name: "Find with Projection: All Site Elements and First Level Content"
@@ -101,19 +101,19 @@
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
-        - {type: "json", query: "processed._id", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {type: "json", query: "processed.password", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.contactPermissions", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.personalInfo", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.sites", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites#", operator: "gt", expected: 0}
-        - {type: "json", query: "processed.sites.0.streetAddress", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites.0.contactInfo", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites.0.usages", operator: "exists", expected: ""}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 0}
+        - {query: "matchCount", operator: "eq", expected: 1}
+        - {query: "processed._id", operator: "empty", expected: ""}
+        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.password", operator: "empty", expected: ""}
+        - {query: "processed.contactPermissions", operator: "empty", expected: ""}
+        - {query: "processed.personalInfo", operator: "empty", expected: ""}
+        - {query: "processed.sites", operator: "exists", expected: ""}
+        - {query: "processed.sites#", operator: "gt", expected: 0}
+        - {query: "processed.sites.0.streetAddress", operator: "exists", expected: ""}
+        - {query: "processed.sites.0.contactInfo", operator: "exists", expected: ""}
+        - {query: "processed.sites.0.usages", operator: "exists", expected: ""}
 
 - test:
     - name: "Find with Projection: All Sites Recursively"
@@ -127,23 +127,23 @@
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
-        - {type: "json", query: "processed._id", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {type: "json", query: "processed.password", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.contactPermissions", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.personalInfo", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.sites", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites#", operator: "gt", expected: 0}
-        - {type: "json", query: "processed.sites.0.streetAddress", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites.0.streetAddress.city", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites.0.contactInfo", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites.0.contactInfo.emailAddress", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites.0.usages", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites.0.usages#", operator: "gt", expected: 0}
-        - {type: "json", query: "processed.sites.0.usages.0.usage", operator: "exists", expected: ""}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 0}
+        - {query: "matchCount", operator: "eq", expected: 1}
+        - {query: "processed._id", operator: "empty", expected: ""}
+        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.password", operator: "empty", expected: ""}
+        - {query: "processed.contactPermissions", operator: "empty", expected: ""}
+        - {query: "processed.personalInfo", operator: "empty", expected: ""}
+        - {query: "processed.sites", operator: "exists", expected: ""}
+        - {query: "processed.sites#", operator: "gt", expected: 0}
+        - {query: "processed.sites.0.streetAddress", operator: "exists", expected: ""}
+        - {query: "processed.sites.0.streetAddress.city", operator: "exists", expected: ""}
+        - {query: "processed.sites.0.contactInfo", operator: "exists", expected: ""}
+        - {query: "processed.sites.0.contactInfo.emailAddress", operator: "exists", expected: ""}
+        - {query: "processed.sites.0.usages", operator: "exists", expected: ""}
+        - {query: "processed.sites.0.usages#", operator: "gt", expected: 0}
+        - {query: "processed.sites.0.usages.0.usage", operator: "exists", expected: ""}
 
 - test:
     - name: "Usages of the First Site"
@@ -157,21 +157,21 @@
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
-        - {type: "json", query: "processed._id", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {type: "json", query: "processed.password", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.contactPermissions", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.personalInfo", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.sites", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites#", operator: "gt", expected: 0}
-        - {type: "json", query: "processed.sites", operator: "count", expected: 1}
-        - {type: "json", query: "processed.sites.0.streetAddress", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.sites.0.contactInfo", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.sites.0.usages", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites.0.usages.0.usage", operator: "exists", expected: ""}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 0}
+        - {query: "matchCount", operator: "eq", expected: 1}
+        - {query: "processed._id", operator: "empty", expected: ""}
+        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.password", operator: "empty", expected: ""}
+        - {query: "processed.contactPermissions", operator: "empty", expected: ""}
+        - {query: "processed.personalInfo", operator: "empty", expected: ""}
+        - {query: "processed.sites", operator: "exists", expected: ""}
+        - {query: "processed.sites#", operator: "gt", expected: 0}
+        - {query: "processed.sites", operator: "count", expected: 1}
+        - {query: "processed.sites.0.streetAddress", operator: "empty", expected: ""}
+        - {query: "processed.sites.0.contactInfo", operator: "empty", expected: ""}
+        - {query: "processed.sites.0.usages", operator: "exists", expected: ""}
+        - {query: "processed.sites.0.usages.0.usage", operator: "exists", expected: ""}
 
 - test:
     - name: "First Usages of All Sites"
@@ -185,21 +185,21 @@
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
-        - {type: "json", query: "processed._id", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {type: "json", query: "processed.password", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.contactPermissions", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.personalInfo", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.sites", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites#", operator: "gt", expected: 0}
-        - {type: "json", query: "processed.sites.0.streetAddress", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.sites.0.contactInfo", operator: "empty", expected: ""}
-        - {type: "json", query: "processed.sites.0.usages", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites.0.usages", operator: "count", expected: 1}
-        - {type: "json", query: "processed.sites.0.usages.0.usage", operator: "exists", expected: ""}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 0}
+        - {query: "matchCount", operator: "eq", expected: 1}
+        - {query: "processed._id", operator: "empty", expected: ""}
+        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.password", operator: "empty", expected: ""}
+        - {query: "processed.contactPermissions", operator: "empty", expected: ""}
+        - {query: "processed.personalInfo", operator: "empty", expected: ""}
+        - {query: "processed.sites", operator: "exists", expected: ""}
+        - {query: "processed.sites#", operator: "gt", expected: 0}
+        - {query: "processed.sites.0.streetAddress", operator: "empty", expected: ""}
+        - {query: "processed.sites.0.contactInfo", operator: "empty", expected: ""}
+        - {query: "processed.sites.0.usages", operator: "exists", expected: ""}
+        - {query: "processed.sites.0.usages", operator: "count", expected: 1}
+        - {query: "processed.sites.0.usages.0.usage", operator: "exists", expected: ""}
 
 - test:
     - name: "All NC Users Sorted by Login: Ascending"
@@ -215,12 +215,12 @@
         "range": [0, 10]
     }'
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 2}
-        - {type: "json", query: "processed", operator: "count", expected: 2}
-        - {type: "json", query: "processed.0.login", operator: "eq", expected: "bserdar"}
-        - {type: "json", query: "processed.1.login", operator: "eq", expected: "nmalik"}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 0}
+        - {query: "matchCount", operator: "eq", expected: 2}
+        - {query: "processed", operator: "count", expected: 2}
+        - {query: "processed.0.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.1.login", operator: "eq", expected: "nmalik"}
 
 - test:
     - name: "All NC Users Sorted by Login: Descending"
@@ -236,10 +236,10 @@
         "range": [0, 10]
     }'
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 2}
-        - {type: "json", query: "processed", operator: "count", expected: 2}
-        - {type: "json", query: "processed.0.login", operator: "eq", expected: "nmalik"}
-        - {type: "json", query: "processed.1.login", operator: "eq", expected: "bserdar"}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 0}
+        - {query: "matchCount", operator: "eq", expected: 2}
+        - {query: "processed", operator: "count", expected: 2}
+        - {query: "processed.0.login", operator: "eq", expected: "nmalik"}
+        - {query: "processed.1.login", operator: "eq", expected: "bserdar"}
 

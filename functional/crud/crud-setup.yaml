@@ -18,7 +18,7 @@
     - group: "metadata/GET"
     - stop_on_failure: True
     - validators:
-        - {type: "json", query: "object_type", operator: "empty", expected: ""}
+        - {query: "object_type", operator: "empty", expected: ""}
 
 - test:
     - name: "Create Entities"
@@ -29,8 +29,8 @@
     - stop_on_failure: True
     - body: {file: "test-crud-insert.json"}
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 2}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
-        - {type: "json", query: "processed._id", operator: "exists", expected: ""}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 2}
+        - {query: "matchCount", operator: "eq", expected: 0}
+        - {query: "processed._id", operator: "exists", expected: ""}
 

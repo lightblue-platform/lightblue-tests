@@ -18,11 +18,11 @@
     - group: "crud/find/GET"
     - stop_on_failure: true
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
-        - {type: "json", query: "processed", operator: "exists", expected: ""}
-        - {type: "json", query: "processed._id", operator: "exists", expected: "", export_as: "ENTITY_ID"}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 0}
+        - {query: "matchCount", operator: "eq", expected: 1}
+        - {query: "processed", operator: "exists", expected: ""}
+        - {query: "processed._id", operator: "exists", expected: "", export_as: "ENTITY_ID"}
 
 - test:
     - name: "Save: change firstName and allowEmailContact"
@@ -33,11 +33,11 @@
     - stop_on_failure: true
     - body: {file: "test-crud-save-bserdar.json"}
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 1}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
-        - {type: "json", query: "processed", operator: "exists", expected: ""}
-        - {type: "json", query: "processed._id", operator: "exists", expected: ""}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 1}
+        - {query: "matchCount", operator: "eq", expected: 0}
+        - {query: "processed", operator: "exists", expected: ""}
+        - {query: "processed._id", operator: "exists", expected: ""}
 
 - test:
     - name: "Verify Save"
@@ -46,14 +46,14 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/GET"
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
-        - {type: "json", query: "processed", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {type: "json", query: "processed.personalInfo.firstName", operator: "eq", expected: "Burak Updated"}
-        - {type: "json", query: "processed.contactPermissions.allowEmailContact", operator: "eq", expected: false}
-        - {type: "json", query: "processed.sites", operator: "count", expected: 2}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 0}
+        - {query: "matchCount", operator: "eq", expected: 1}
+        - {query: "processed", operator: "exists", expected: ""}
+        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.personalInfo.firstName", operator: "eq", expected: "Burak Updated"}
+        - {query: "processed.contactPermissions.allowEmailContact", operator: "eq", expected: false}
+        - {query: "processed.sites", operator: "count", expected: 2}
 
 - test:
     - name: "Update allowEmailContact"
@@ -69,11 +69,11 @@
         "update": [ {"$set": {"contactPermissions.allowEmailContact":true} } ]
     }'
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 1}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
-        - {type: "json", query: "processed", operator: "exists", expected: ""}
-        - {type: "json", query: "processed._id", operator: "exists", expected: ""}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 1}
+        - {query: "matchCount", operator: "eq", expected: 0}
+        - {query: "processed", operator: "exists", expected: ""}
+        - {query: "processed._id", operator: "exists", expected: ""}
 
 - test:
     - name: "Verify update allowEmailContact"
@@ -82,13 +82,13 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/GET"
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
-        - {type: "json", query: "processed", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {type: "json", query: "processed.personalInfo.firstName", operator: "eq", expected: "Burak Updated"}
-        - {type: "json", query: "processed.contactPermissions.allowEmailContact", operator: "eq", expected: true}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 0}
+        - {query: "matchCount", operator: "eq", expected: 1}
+        - {query: "processed", operator: "exists", expected: ""}
+        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.personalInfo.firstName", operator: "eq", expected: "Burak Updated"}
+        - {query: "processed.contactPermissions.allowEmailContact", operator: "eq", expected: true}
 
 - test:
     - name: "Update: remove array element"
@@ -104,14 +104,14 @@
         "update": [ {"$unset": "sites.0" } ]
     }'
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 1}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
-        - {type: "json", query: "processed", operator: "exists", expected: ""}
-        - {type: "json", query: "processed._id", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {type: "json", query: "processed.sites", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites", operator: "count", expected: 1}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 1}
+        - {query: "matchCount", operator: "eq", expected: 0}
+        - {query: "processed", operator: "exists", expected: ""}
+        - {query: "processed._id", operator: "exists", expected: ""}
+        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.sites", operator: "exists", expected: ""}
+        - {query: "processed.sites", operator: "count", expected: 1}
 
 - test:
     - name: "Save: reset state for next test"
@@ -122,11 +122,11 @@
     - stop_on_failure: true
     - body: {file: "test-crud-save-bserdar.json"}
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 1}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
-        - {type: "json", query: "processed", operator: "exists", expected: ""}
-        - {type: "json", query: "processed._id", operator: "exists", expected: ""}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 1}
+        - {query: "matchCount", operator: "eq", expected: 0}
+        - {query: "processed", operator: "exists", expected: ""}
+        - {query: "processed._id", operator: "exists", expected: ""}
 
 - test:
     - name: "Find: verify state"
@@ -136,17 +136,17 @@
     - group: "crud/find/GET"
     - stop_on_failure: true
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
-        - {type: "json", query: "processed", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {type: "json", query: "processed.sites", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites", operator: "count", expected: 2}
-        - {type: "json", query: "processed.sites.0.defaultSite", operator: "eq", expected: 1}
-        - {type: "json", query: "processed.sites.0.active", operator: "eq", expected: 1}
-        - {type: "json", query: "processed.sites.1.defaultSite", operator: "eq", expected: 0}
-        - {type: "json", query: "processed.sites.1.active", operator: "eq", expected: 1}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 0}
+        - {query: "matchCount", operator: "eq", expected: 1}
+        - {query: "processed", operator: "exists", expected: ""}
+        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.sites", operator: "exists", expected: ""}
+        - {query: "processed.sites", operator: "count", expected: 2}
+        - {query: "processed.sites.0.defaultSite", operator: "eq", expected: 1}
+        - {query: "processed.sites.0.active", operator: "eq", expected: 1}
+        - {query: "processed.sites.1.defaultSite", operator: "eq", expected: 0}
+        - {query: "processed.sites.1.active", operator: "eq", expected: 1}
 
 - test:
     - name: "Update: inactive non-default site"
@@ -163,17 +163,17 @@
                                     "$update" : { "$set" : {"active":0}} } }
     }'
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 1}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
-        - {type: "json", query: "processed", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {type: "json", query: "processed.sites", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites", operator: "count", expected: 2}
-        - {type: "json", query: "processed.sites.0.defaultSite", operator: "eq", expected: 1}
-        - {type: "json", query: "processed.sites.0.active", operator: "eq", expected: 1}
-        - {type: "json", query: "processed.sites.1.defaultSite", operator: "eq", expected: 0}
-        - {type: "json", query: "processed.sites.1.active", operator: "eq", expected: 0}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 1}
+        - {query: "matchCount", operator: "eq", expected: 0}
+        - {query: "processed", operator: "exists", expected: ""}
+        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.sites", operator: "exists", expected: ""}
+        - {query: "processed.sites", operator: "count", expected: 2}
+        - {query: "processed.sites.0.defaultSite", operator: "eq", expected: 1}
+        - {query: "processed.sites.0.active", operator: "eq", expected: 1}
+        - {query: "processed.sites.1.defaultSite", operator: "eq", expected: 0}
+        - {query: "processed.sites.1.active", operator: "eq", expected: 0}
 
 
 - test:
@@ -191,14 +191,14 @@
                                    "$update" : "$remove" }}
     }'
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 1}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
-        - {type: "json", query: "processed", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {type: "json", query: "processed.sites", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites", operator: "count", expected: 1}
-        - {type: "json", query: "processed.sites.0.active", operator: "eq", expected: 1}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 1}
+        - {query: "matchCount", operator: "eq", expected: 0}
+        - {query: "processed", operator: "exists", expected: ""}
+        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.sites", operator: "exists", expected: ""}
+        - {query: "processed.sites", operator: "count", expected: 1}
+        - {query: "processed.sites.0.active", operator: "eq", expected: 1}
 
 
 - test:
@@ -215,15 +215,15 @@
         "update": { "$append" : {"sites":{ } } }
     }'
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 1}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
-        - {type: "json", query: "processed", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {type: "json", query: "processed.sites", operator: "exists", expected: ""}
-        - {type: "json", query: "processed.sites", operator: "count", expected: 2}
-        - {type: "json", query: "processed.sites.0.active", operator: "eq", expected: 1}
-        - {type: "json", query: "processed.sites.1", operator: "count", expected: 0}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 1}
+        - {query: "matchCount", operator: "eq", expected: 0}
+        - {query: "processed", operator: "exists", expected: ""}
+        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.sites", operator: "exists", expected: ""}
+        - {query: "processed.sites", operator: "count", expected: 2}
+        - {query: "processed.sites.0.active", operator: "eq", expected: 1}
+        - {query: "processed.sites.1", operator: "count", expected: 0}
 
 - test:
     - name: "Update: delete user"
@@ -238,9 +238,9 @@
                                {"field":"personalInfo.lastName","op":"=","rvalue":"Serdar"} ] }
     }'
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 1}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 1}
+        - {query: "matchCount", operator: "eq", expected: 0}
 
 - test:
     - name: "Find: verify delete"
@@ -250,7 +250,7 @@
     - group: "crud/find/GET"
     - stop_on_failure: true
     - validators:
-        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
-        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
-        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 0}
+        - {query: "matchCount", operator: "eq", expected: 0}
 
