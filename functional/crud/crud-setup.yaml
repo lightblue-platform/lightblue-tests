@@ -13,8 +13,9 @@
 - test: # verify entity exists
     - name: "Verify Entity: /metadata/entity/version"
     - url: "/metadata/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: GET
     - headers: {Content-Type: application/json}
-    - group: "metadata/find"
+    - group: "metadata/GET"
     - stop_on_failure: True
     - validators:
         - {type: "json", query: "object_type", operator: "empty", expected: ""}
@@ -24,7 +25,7 @@
     - url: "/data/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: PUT
     - headers: {Content-Type: application/json}
-    - group: "crud/insert"
+    - group: "crud/PUT"
     - stop_on_failure: True
     - body: {file: "test-crud-insert.json"}
     - validators:

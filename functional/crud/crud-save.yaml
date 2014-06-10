@@ -15,7 +15,7 @@
     - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=_id:1"
     - method: GET
     - headers: {Content-Type: application/json}
-    - group: "crud/save"
+    - group: "crud/find/GET"
     - stop_on_failure: true
     - validators:
         - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
@@ -29,7 +29,7 @@
     - url: "/data/save/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
-    - group: "crud/save"
+    - group: "crud/save/POST"
     - stop_on_failure: true
     - body: {file: "test-crud-save-bserdar.json"}
     - validators:
@@ -44,7 +44,7 @@
     - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar"
     - method: GET
     - headers: {Content-Type: application/json}
-    - group: "crud/save"
+    - group: "crud/find/GET"
     - validators:
         - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
         - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
@@ -60,7 +60,7 @@
     - url: "/data/update/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
-    - group: "crud/save"
+    - group: "crud/update/POST"
     - body: '{
         "object_type":"${ENTITY_NAME}",
         "returning": {"field":"_id"},
@@ -80,7 +80,7 @@
     - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar"
     - method: GET
     - headers: {Content-Type: application/json}
-    - group: "crud/save"
+    - group: "crud/find/GET"
     - validators:
         - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
         - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
@@ -95,7 +95,7 @@
     - url: "/data/update/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
-    - group: "crud/save"
+    - group: "crud/update/POST"
     - body: '{
         "object_type":"${ENTITY_NAME}",
         "returning": [ { "field":"_id"}, {"field":"login"}, {"field":"sites", "recursive":true} ],
@@ -118,7 +118,7 @@
     - url: "/data/save/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
-    - group: "crud/save"
+    - group: "crud/save/POST"
     - stop_on_failure: true
     - body: {file: "test-crud-save-bserdar.json"}
     - validators:
@@ -133,7 +133,7 @@
     - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar"
     - method: GET
     - headers: {Content-Type: application/json}
-    - group: "crud/save"
+    - group: "crud/find/GET"
     - stop_on_failure: true
     - validators:
         - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
@@ -153,7 +153,7 @@
     - url: "/data/update/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
-    - group: "crud/save"
+    - group: "crud/update/POST"
     - body: '{
         "object_type":"${ENTITY_NAME}",
         "returning": { "field":"*","recursive":1},
@@ -181,7 +181,7 @@
     - url: "/data/update/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
-    - group: "crud/save"
+    - group: "crud/update/POST"
     - body: '{
         "object_type":"${ENTITY_NAME}",
         "returning": { "field":"*","recursive":1},
@@ -206,7 +206,7 @@
     - url: "/data/update/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
-    - group: "crud/save"
+    - group: "crud/update/POST"
     - body: '{
         "object_type":"${ENTITY_NAME}",
         "returning": { "field":"*","recursive":1},
@@ -230,7 +230,7 @@
     - url: "/data/delete/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
-    - group: "crud/save"
+    - group: "crud/delete/POST"
     - stop_on_failure: true
     - body: '{
         "object_type":"${ENTITY_NAME}",
@@ -247,7 +247,7 @@
     - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar"
     - method: GET
     - headers: {Content-Type: application/json}
-    - group: "crud/save"
+    - group: "crud/find/GET"
     - stop_on_failure: true
     - validators:
         - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
