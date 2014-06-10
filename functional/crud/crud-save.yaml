@@ -6,17 +6,16 @@
 #   operator is applied as: <actual> <operator> <expected>
 ---
 - config:
-    - testset: "CRUD Test: Save"
+    - testset: "CRUD Test: Save then Update"
     - headers: {Content-Type: application/json}
     - validator_query_delimiter: "."
-
 
 - test:
     - name: "Save: fetch _id for save"
     - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=_id:1"
     - method: GET
     - headers: {Content-Type: application/json}
-    - group: "crud/find/GET"
+    - group: "crud/save"
     - stop_on_failure: true
     - validators:
         - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
@@ -26,11 +25,11 @@
         - {type: "json", query: "processed._id", operator: "exists", expected: "", export_as: "ENTITY_ID"}
 
 - test:
-    - name: "Save: change last name"
+    - name: "Save: change firstName and allowEmailContact"
     - url: "/data/save/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
-    - group: "crud/save/POST"
+    - group: "crud/save"
     - stop_on_failure: true
     - body: {file: "test-crud-save-bserdar.json"}
     - validators:
@@ -38,5 +37,220 @@
         - {type: "json", query: "modifiedCount", operator: "eq", expected: 1}
         - {type: "json", query: "matchCount", operator: "eq", expected: 0}
         - {type: "json", query: "processed", operator: "exists", expected: ""}
-        - {type: "json", query: "processed", operator: "count", expected: 1}
         - {type: "json", query: "processed._id", operator: "exists", expected: ""}
+
+- test:
+    - name: "Verify Save"
+    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar"
+    - method: GET
+    - headers: {Content-Type: application/json}
+    - group: "crud/save"
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
+        - {type: "json", query: "processed", operator: "exists", expected: ""}
+        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {type: "json", query: "processed.personalInfo.firstName", operator: "eq", expected: "Burak Updated"}
+        - {type: "json", query: "processed.contactPermissions.allowEmailContact", operator: "eq", expected: false}
+        - {type: "json", query: "processed.sites", operator: "count", expected: 2}
+
+- test:
+    - name: "Update allowEmailContact"
+    - url: "/data/update/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: POST
+    - headers: {Content-Type: application/json}
+    - group: "crud/save"
+    - body: '{
+        "object_type":"${ENTITY_NAME}",
+        "returning": {"field":"_id"},
+        "query": { "$and" : [ {"field":"personalInfo.firstName","regex":"Burak.*"},
+                              {"field":"personalInfo.lastName","op":"=","rvalue":"Serdar"} ] },
+        "update": [ {"$set": {"contactPermissions.allowEmailContact":true} } ]
+    }'
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 1}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
+        - {type: "json", query: "processed", operator: "exists", expected: ""}
+        - {type: "json", query: "processed._id", operator: "exists", expected: ""}
+
+- test:
+    - name: "Verify update allowEmailContact"
+    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar"
+    - method: GET
+    - headers: {Content-Type: application/json}
+    - group: "crud/save"
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
+        - {type: "json", query: "processed", operator: "exists", expected: ""}
+        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {type: "json", query: "processed.personalInfo.firstName", operator: "eq", expected: "Burak Updated"}
+        - {type: "json", query: "processed.contactPermissions.allowEmailContact", operator: "eq", expected: true}
+
+- test:
+    - name: "Update: remove array element"
+    - url: "/data/update/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: POST
+    - headers: {Content-Type: application/json}
+    - group: "crud/save"
+    - body: '{
+        "object_type":"${ENTITY_NAME}",
+        "returning": [ { "field":"_id"}, {"field":"login"}, {"field":"sites", "recursive":true} ],
+        "query": { "$and" : [ {"field":"personalInfo.firstName","regex":"Burak.*"},
+                              {"field":"personalInfo.lastName","op":"=","rvalue":"Serdar"} ] },
+        "update": [ {"$unset": "sites.0" } ]
+    }'
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 1}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
+        - {type: "json", query: "processed", operator: "exists", expected: ""}
+        - {type: "json", query: "processed._id", operator: "exists", expected: ""}
+        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {type: "json", query: "processed.sites", operator: "exists", expected: ""}
+        - {type: "json", query: "processed.sites", operator: "count", expected: 1}
+
+- test:
+    - name: "Save: reset state for next test"
+    - url: "/data/save/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: POST
+    - headers: {Content-Type: application/json}
+    - group: "crud/save"
+    - stop_on_failure: true
+    - body: {file: "test-crud-save-bserdar.json"}
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 1}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
+        - {type: "json", query: "processed", operator: "exists", expected: ""}
+        - {type: "json", query: "processed._id", operator: "exists", expected: ""}
+
+- test:
+    - name: "Find: verify state"
+    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar"
+    - method: GET
+    - headers: {Content-Type: application/json}
+    - group: "crud/save"
+    - stop_on_failure: true
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 1}
+        - {type: "json", query: "processed", operator: "exists", expected: ""}
+        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {type: "json", query: "processed.sites", operator: "exists", expected: ""}
+        - {type: "json", query: "processed.sites", operator: "count", expected: 2}
+        - {type: "json", query: "processed.sites.0.defaultSite", operator: "eq", expected: 1}
+        - {type: "json", query: "processed.sites.0.active", operator: "eq", expected: 1}
+        - {type: "json", query: "processed.sites.1.defaultSite", operator: "eq", expected: 0}
+        - {type: "json", query: "processed.sites.1.active", operator: "eq", expected: 1}
+
+- test:
+    - name: "Update: inactive non-default site"
+    - url: "/data/update/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: POST
+    - headers: {Content-Type: application/json}
+    - group: "crud/save"
+    - body: '{
+        "object_type":"${ENTITY_NAME}",
+        "returning": { "field":"*","recursive":1},
+        "query": { "$and" : [ {"field":"personalInfo.firstName","regex":"Burak.*"},
+                              {"field":"personalInfo.lastName","op":"=","rvalue":"Serdar"} ] },
+        "update": { "$foreach" : { "sites" : { "field":"defaultSite","op":"=","rvalue":0 },
+                                    "$update" : { "$set" : {"active":0}} } }
+    }'
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 1}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
+        - {type: "json", query: "processed", operator: "exists", expected: ""}
+        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {type: "json", query: "processed.sites", operator: "exists", expected: ""}
+        - {type: "json", query: "processed.sites", operator: "count", expected: 2}
+        - {type: "json", query: "processed.sites.0.defaultSite", operator: "eq", expected: 1}
+        - {type: "json", query: "processed.sites.0.active", operator: "eq", expected: 1}
+        - {type: "json", query: "processed.sites.1.defaultSite", operator: "eq", expected: 0}
+        - {type: "json", query: "processed.sites.1.active", operator: "eq", expected: 0}
+
+
+- test:
+    - name: "Update: delete inactive sites"
+    - url: "/data/update/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: POST
+    - headers: {Content-Type: application/json}
+    - group: "crud/save"
+    - body: '{
+        "object_type":"${ENTITY_NAME}",
+        "returning": { "field":"*","recursive":1},
+        "query": { "$and" : [ {"field":"personalInfo.firstName","regex":"Burak.*"},
+                              {"field":"personalInfo.lastName","op":"=","rvalue":"Serdar"} ] },
+        "update": { "$foreach" : { "sites" : { "field":"active","op":"=","rvalue":0 },
+                                   "$update" : "$remove" }}
+    }'
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 1}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
+        - {type: "json", query: "processed", operator: "exists", expected: ""}
+        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {type: "json", query: "processed.sites", operator: "exists", expected: ""}
+        - {type: "json", query: "processed.sites", operator: "count", expected: 1}
+        - {type: "json", query: "processed.sites.0.active", operator: "eq", expected: 1}
+
+
+- test:
+    - name: "Update: add new empty site"
+    - url: "/data/update/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: POST
+    - headers: {Content-Type: application/json}
+    - group: "crud/save"
+    - body: '{
+        "object_type":"${ENTITY_NAME}",
+        "returning": { "field":"*","recursive":1},
+        "query": { "$and" : [ {"field":"personalInfo.firstName","regex":"Burak.*"},
+                              {"field":"personalInfo.lastName","op":"=","rvalue":"Serdar"} ] },
+        "update": { "$append" : {"sites":{ } } }
+    }'
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 1}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
+        - {type: "json", query: "processed", operator: "exists", expected: ""}
+        - {type: "json", query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {type: "json", query: "processed.sites", operator: "exists", expected: ""}
+        - {type: "json", query: "processed.sites", operator: "count", expected: 2}
+        - {type: "json", query: "processed.sites.0.active", operator: "eq", expected: 1}
+        - {type: "json", query: "processed.sites.1", operator: "count", expected: 0}
+
+- test:
+    - name: "Update: delete user"
+    - url: "/data/delete/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: POST
+    - headers: {Content-Type: application/json}
+    - group: "crud/save"
+    - stop_on_failure: true
+    - body: '{
+        "object_type":"${ENTITY_NAME}",
+        "query":  { "$and" : [ {"field":"personalInfo.firstName","regex":"Burak.*"},
+                               {"field":"personalInfo.lastName","op":"=","rvalue":"Serdar"} ] }
+    }'
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 1}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
+
+- test:
+    - name: "Find: verify delete"
+    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar"
+    - method: GET
+    - headers: {Content-Type: application/json}
+    - group: "crud/save"
+    - stop_on_failure: true
+    - validators:
+        - {type: "json", query: "status", operator: "eq", expected: "COMPLETE"}
+        - {type: "json", query: "modifiedCount", operator: "eq", expected: 0}
+        - {type: "json", query: "matchCount", operator: "eq", expected: 0}
+

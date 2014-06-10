@@ -15,7 +15,7 @@
             },
             "active": true,
             "contactPermissions": {
-                "allowEmailContact": true,
+                "allowEmailContact": false,
                 "allowFaxContact": false,
                 "allowMailContact": false,
                 "allowPhoneContact": false,
