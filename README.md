@@ -4,10 +4,10 @@ lightblue-tests
 Functional and load tests for lightblue
 
 # Functional Tests
-Black box (using only external interface) testing to verify the evaluated software is following the specifications.  For lightblue that means testing the crud and metadat services
+Black box (using only external interface) testing to verify the evaluated software is following the specifications.  For lightblue that means testing the crud and metadata services
 
 ## Setup
-Assumes python 2.6 is installed.  To install dependencies:
+Assumes python 2.6 is installed on the host that will run the tests.  To install dependencies:
 ```
 sudo su -
 yum install -y python-setuptools
