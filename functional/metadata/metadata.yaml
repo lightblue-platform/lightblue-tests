@@ -11,7 +11,7 @@
 
 # Tests that do not require any specific state.
 
-- test: # verify get verisons for invalid entity
+- test: # verify get versions for invalid entity
     - name: "Invalid Entity"
     - url: "/metadata/ThisEntityDoesNotExist" 
     - method: GET
@@ -57,7 +57,7 @@
         - {query: "entities", operator: "gt", expected: 0}
         - {query: "entities", operator: "contains", expected: "${ENTITY_NAME}"}
 
-- test: # verify get verisons for valid entity
+- test: # verify get versions for valid entity
     - name: "Verify Create: /metadata/entity"
     - url: "/metadata/${ENTITY_NAME}"
     - headers: {Content-Type: application/json}
@@ -104,7 +104,7 @@
         - {query: "entities", operator: "gt", expected: 0}
         - {query: "entities", operator: "contains", expected: "${ENTITY_NAME}"}
 
-- test: # verify get verisons for valid entity
+- test: # verify get versions for valid entity
     - name: "Verify Schema: /metadata/entity"
     - url: "/metadata/${ENTITY_NAME}"
     - headers: {Content-Type: application/json}
