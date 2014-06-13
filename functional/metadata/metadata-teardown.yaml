@@ -32,13 +32,12 @@
 
 - test:
     - name: "Clear default version"
-    - url: "/metadata/${ENTITY_NAME}/${ENTITY_VERSION_2}/default=false"
-    - method: POST
-    - headers: {Content-Type: application/json}
-    - group: "metadata/POST"
+    - url: "/metadata/${ENTITY_NAME}/default"
+    - method: DELETE
+    - group: "metadata/DELETE"
     - validators:
-        - {query: "entityInfo/name", operator: "eq", expected: "${ENTITY_NAME}"}
-        - {query: "entityInfo/defaultVersion", operator: "empty", expected: ""}
+        - {query: "name", operator: "eq", expected: "${ENTITY_NAME}"}
+        - {query: "defaultVersion", operator: "empty", expected: ""}
 
 - test:
     - name: "Disable ${ENTITY_VERSION_2}"
@@ -57,8 +56,12 @@
     - method: DELETE
     - headers: {Content-Type: application/json}
     - group: "metadata/DELETE"
-    - validators:
-        - {query: "object_type", operator: "eq", expected: "error"}
-        - {query: "context", operator: "eq", expected: "RemoveEntityCommand"}
-        - {query: "errorCode", operator: "eq", expected: "mongo-metadata:CannotDeleteEntity"}
 
+- test: 
+    - name: "Verify deletion"
+    - url: "/metadata/${ENTITY_NAME}"
+    - method: GET
+    - headers: {Content-Type: application/json}
+    - group: "metadata/GET"
+    - validators:
+        - {query: "entities", operator: "count", expected: 0}
