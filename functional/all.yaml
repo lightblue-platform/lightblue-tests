@@ -1,9 +1,10 @@
 - config:
     - testset: "All tests"
 
-- import: metadata/metadata.yaml
+- import: metadata/metadata-setup.yaml
 - import: crud/crud-setup.yaml
 - import: crud/crud-find-basic-get.yaml
 - import: crud/crud-find-basic-post.yaml
 - import: crud/crud-find-complex-post.yaml
 - import: crud/crud-save.yaml
+- import: metadata/metadata-teardown.yaml

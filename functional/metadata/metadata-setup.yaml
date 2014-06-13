@@ -6,7 +6,7 @@
 #   operator is applied as: <actual> <operator> <expected>
 ---
 - config:
-    - testset: "Metadata Test"
+    - testset: "Metadata: Setup"
     - headers: {Content-Type: application/json}
 
 # Tests that do not require any specific state.
@@ -189,7 +189,6 @@
     - headers: {Content-Type: application/json}
     - group: "metadata/PUT"
     - method: PUT
-    - body: "testing deprecation"
     - stop_on_failure: True
     - validators: # operator is applied as: <actual> <operator> <expected>
         - {query: "entityInfo/name", operator: "eq", expected: "${ENTITY_NAME}"}
@@ -216,7 +215,6 @@
     - headers: {Content-Type: application/json}
     - group: "metadata/PUT"
     - method: PUT
-    - body: "testing disabled"
     - stop_on_failure: True
     - validators: # operator is applied as: <actual> <operator> <expected>
         - {query: "entityInfo/name", operator: "eq", expected: "${ENTITY_NAME}"}
