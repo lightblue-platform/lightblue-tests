@@ -1,0 +1,64 @@
+# Tests of metadata service.
+# Notes on json validation:
+#   must supply count or expected
+#   if supply expected can optionally specify operator
+#   operator defaults to "eq", available values are: abs contains eq ge gt index inv invert le lt ne neg not pos truth
+#   operator is applied as: <actual> <operator> <expected>
+---
+- config:
+    - testset: "Metadata: Teardown"
+
+- test:
+    - name: "Delete Entity (fail)"
+    - url: "/metadata/${ENTITY_NAME}"
+    - method: DELETE
+    - headers: {Content-Type: application/json}
+    - group: "metadata/DELETE"
+    - validators:
+        - {query: "object_type", operator: "eq", expected: "error"}
+        - {query: "context", operator: "eq", expected: "RemoveEntityCommand"}
+        - {query: "errorCode", operator: "eq", expected: "mongo-metadata:CannotDeleteEntity"}
+
+- test:
+    - name: "Disable ${ENTITY_VERSION_1}"
+    - url: "/metadata/${ENTITY_NAME}/${ENTITY_VERSION_1}/disabled?comment=teardown"
+    - method: PUT
+    - headers: {Content-Type: application/json}
+    - group: "metadata/DELETE"
+    - validators:
+        - {query: "entityInfo/name", operator: "eq", expected: "${ENTITY_NAME}"}
+        - {query: "schema/version/value", operator: "eq", expected: "${ENTITY_VERSION_1}"}
+        - {query: "schema/status/value", operator: "eq", expected: "disabled"}
+
+- test:
+    - name: "Clear default version"
+    - url: "/metadata/${ENTITY_NAME}/${ENTITY_VERSION_2}/default=false"
+    - method: POST
+    - headers: {Content-Type: application/json}
+    - group: "metadata/POST"
+    - validators:
+        - {query: "entityInfo/name", operator: "eq", expected: "${ENTITY_NAME}"}
+        - {query: "entityInfo/defaultVersion", operator: "empty", expected: ""}
+
+- test:
+    - name: "Disable ${ENTITY_VERSION_2}"
+    - url: "/metadata/${ENTITY_NAME}/${ENTITY_VERSION_2}/disabled?comment=teardown"
+    - method: PUT
+    - headers: {Content-Type: application/json}
+    - group: "metadata/DELETE"
+    - validators:
+        - {query: "entityInfo/name", operator: "eq", expected: "${ENTITY_NAME}"}
+        - {query: "schema/version/value", operator: "eq", expected: "${ENTITY_VERSION_2}"}
+        - {query: "schema/status/value", operator: "eq", expected: "disabled"}
+
+- test:
+    - name: "Delete Entity (succeed)"
+    - url: "/metadata/${ENTITY_NAME}"
+    - method: DELETE
+    - headers: {Content-Type: application/json}
+    - group: "metadata/DELETE"
+    - validators:
+        - {query: "object_type", operator: "eq", expected: "error"}
+        - {query: "context", operator: "eq", expected: "RemoveEntityCommand"}
+        - {query: "errorCode", operator: "eq", expected: "mongo-metadata:CannotDeleteEntity"}
+
