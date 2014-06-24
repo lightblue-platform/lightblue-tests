@@ -53,6 +53,7 @@
     - group: "metadata/GET"
     - method: GET
     - expected_status: 200
+    - stop_on_failure: true
     - validators: # operator is applied as: <actual> <operator> <expected>
         - {query: "entities", operator: "gt", expected: 0}
         - {query: "entities", operator: "contains", expected: "${ENTITY_NAME}"}
