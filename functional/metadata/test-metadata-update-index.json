@@ -10,7 +10,7 @@
       { 
         "name":"login_ix",
         "unique": true,
-        "fields": [ { "login":"$asc" } ]
+        "fields": [ { "field":"login","dir":"$asc" } ]
       }
     ],
     "datastore": {
