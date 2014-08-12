@@ -17,7 +17,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": [ { "field":"login" }, { "field":"_id" } ],
         "query":  { "$or": [ { "field":"login", "op":"$eq", "rvalue":"bserdar" }, { "field":"login", "op":"$neq", "rvalue":"bserdar" } ] },
         "sort": { "login":"$asc" }
@@ -40,7 +40,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": [ { "field":"login"}, {"field":"_id"} ],
         "sort" : { "login":"$asc"},
         "query":  { "field":"personalInfo.firstName", "regex":"burak.*"},
@@ -60,7 +60,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": [ { "field":"login"}, {"field":"_id"} ],
         "sort" : { "login":"$asc"},
         "query":  { "field":"personalInfo.firstName", "regex":"burak.*", "case insensitive":1},
@@ -80,7 +80,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": [ { "field":"login"}, {"field":"_id"} ],
         "sort" : { "login":"$asc"},
         "query":  { "field":"personalInfo.firstName", "op":"$neq", "rfield":"sites.0.firstName"},
@@ -101,7 +101,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": [ { "field":"login"}, {"field":"_id"}, {"field":"sites","project":{"field":"*"}} ],
         "query":  { "array":"sites","elemMatch":{"field":"active","op":"$eq","rvalue":1} },
         "sort":{"login":"$asc"},
@@ -125,7 +125,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": [ { "field":"login"}, {"field":"createdDate"},{"field":"personalInfo.*"}],
         "sort" : { "login":"$asc"},
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" },
@@ -150,7 +150,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": [ { "field":"login"}, {"field":"createdDate"},{"field":"personalInfo.*"},{"field":"personalInfo.email","include":false}],
         "sort" : { "login":"$asc"},
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" },
@@ -175,7 +175,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": [ { "field":"*","recursive":1}, {"field":"sites","include":false} ],
         "sort" : { "login":"$asc"},
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" },
@@ -199,7 +199,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": [ { "field":"login"}, {"field":"sites", "range":[0,0] } ],
         "sort" : { "login":"$asc"},
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" },
@@ -221,7 +221,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": [ { "field":"login"}, {"field":"sites", "match":{ "field":"active", "op":"=", "rvalue":true }, "project":{"field":"*","recursive":1} } ],
         "sort" : { "login":"$asc"},
         "query":  { "field":"login", "op":"$eq", "rvalue":"nmalik" },
@@ -244,7 +244,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": [ { "field":"login"}, {"field":"sites", "match":{ "field":"defaultSite", "op":"=", "rvalue":true }, "project":{"field":"description"} } ],
         "sort" : { "login":"$asc"},
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" },

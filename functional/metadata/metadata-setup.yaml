@@ -42,7 +42,7 @@
     - body: {file: "test-metadata-insert.json"}
     - stop_on_failure: True
     - validators:
-        - {query: "object_type", operator: "empty", expected: ""}
+        - {query: "objectType", operator: "empty", expected: ""}
 
 # Verify v1.
 
@@ -90,7 +90,7 @@
     - body: {file: "test-metadata-update-v2.json"}
     - stop_on_failure: True
     - validators:
-        - {query: "object_type", operator: "empty", expected: ""}
+        - {query: "objectType", operator: "empty", expected: ""}
 
 # Verify v2.
 
