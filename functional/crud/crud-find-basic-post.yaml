@@ -17,7 +17,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": { "field":"*","recursive":1},
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
@@ -44,7 +44,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": [ { "field":"login" }, { "field":"sites" }, { "field":"sites#" } ],
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
@@ -70,7 +70,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": [ { "field":"login" }, { "field":"sites.*" }, { "field":"sites#" } ],
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
@@ -96,7 +96,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": [ { "field":"login" }, { "field":"sites.*.*" }, { "field":"sites#" } ],
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
@@ -122,7 +122,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": [ { "field":"login" }, { "field":"sites.*", "recursive":"true" }, { "field":"sites#" } ],
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
@@ -152,7 +152,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": [ { "field":"login" }, { "field":"sites.0.usages.*", "recursive":"true" }, { "field":"sites#" } ],
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
@@ -180,7 +180,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": [ { "field":"login" }, { "field":"sites.*.usages.0.*", "recursive":"true" }, { "field":"sites#" } ],
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
@@ -208,7 +208,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": { "field":"login" },
         "query":  { "field":"sites.*.streetAddress.state", "op":"$eq", "rvalue":"NC" },
         "sort": { "login":"$asc" },
@@ -229,7 +229,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": { "field":"login" },
         "query":  { "field":"sites.*.streetAddress.state", "op":"$eq", "rvalue":"NC" },
         "sort": { "login":"$desc" },

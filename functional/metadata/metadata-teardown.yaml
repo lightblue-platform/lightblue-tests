@@ -15,7 +15,7 @@
     - headers: {Content-Type: application/json}
     - group: "metadata/DELETE"
     - validators:
-        - {query: "object_type", operator: "eq", expected: "error"}
+        - {query: "objectType", operator: "eq", expected: "error"}
         - {query: "context", operator: "eq", expected: "RemoveEntityCommand"}
         - {query: "errorCode", operator: "eq", expected: "mongo-metadata:CannotDeleteEntity"}
 

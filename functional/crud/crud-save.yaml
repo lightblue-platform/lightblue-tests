@@ -62,7 +62,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/update/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": {"field":"_id"},
         "query": { "$and" : [ {"field":"personalInfo.firstName","regex":"Burak.*"},
                               {"field":"personalInfo.lastName","op":"=","rvalue":"Serdar"} ] },
@@ -97,7 +97,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/update/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": [ { "field":"_id"}, {"field":"login"}, {"field":"sites", "recursive":true} ],
         "query": { "$and" : [ {"field":"personalInfo.firstName","regex":"Burak.*"},
                               {"field":"personalInfo.lastName","op":"=","rvalue":"Serdar"} ] },
@@ -155,7 +155,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/update/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": { "field":"*","recursive":1},
         "query": { "$and" : [ {"field":"personalInfo.firstName","regex":"Burak.*"},
                               {"field":"personalInfo.lastName","op":"=","rvalue":"Serdar"} ] },
@@ -183,7 +183,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/update/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": { "field":"*","recursive":1},
         "query": { "$and" : [ {"field":"personalInfo.firstName","regex":"Burak.*"},
                               {"field":"personalInfo.lastName","op":"=","rvalue":"Serdar"} ] },
@@ -208,7 +208,7 @@
     - headers: {Content-Type: application/json}
     - group: "crud/update/POST"
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "returning": { "field":"*","recursive":1},
         "query": { "$and" : [ {"field":"personalInfo.firstName","regex":"Burak.*"},
                               {"field":"personalInfo.lastName","op":"=","rvalue":"Serdar"} ] },
@@ -233,7 +233,7 @@
     - group: "crud/delete/POST"
     - stop_on_failure: true
     - body: '{
-        "object_type":"${ENTITY_NAME}",
+        "objectType":"${ENTITY_NAME}",
         "query":  { "$and" : [ {"field":"personalInfo.firstName","regex":"Burak.*"},
                                {"field":"personalInfo.lastName","op":"=","rvalue":"Serdar"} ] }
     }'
