@@ -1,0 +1,4 @@
+- config:
+    - testset: "All tests"
+
+- import: metadata/metadata-setup.yaml
