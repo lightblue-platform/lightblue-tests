@@ -9,6 +9,7 @@
     - testset: "CRUD Test: Setup"
     - headers: {Content-Type: application/json}
     - validator_query_delimiter: "."
+    - certificate_path: "../../../lb-load-client.pem"
 
 - test: # verify entity exists
     - name: "Verify Entity: /metadata/entity/version"

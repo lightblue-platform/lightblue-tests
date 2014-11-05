@@ -9,6 +9,7 @@
     - testset: "CRUD Test: Save then Update"
     - headers: {Content-Type: application/json}
     - validator_query_delimiter: "."
+    - certificate_path: "../../../lb-load-client.pem"
 
 - test:
     - name: "Save: fetch _id for save"

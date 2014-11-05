@@ -8,6 +8,7 @@
 - config:
     - testset: "Metadata: Setup"
     - headers: {Content-Type: application/json}
+    - certificate_path: "../../../lb-load-client.pem"
 
 # Tests that do not require any specific state.
 
