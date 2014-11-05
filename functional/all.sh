@@ -24,7 +24,9 @@ export ENTITY_VERSION="${ENTITY_VERSION_2}"
 
 echo "Running tests for new entity: $ENTITY_NAME"
 
-python -c "import resttest; args=dict(); args['url']='$1'; args['test']='all.yaml'; args['log']='$LOGGING_LEVEL'; args['interactive']=$INTERACTIVE; args['print_bodies']=$INTERACTIVE; resttest.main(args)" 2>&1
+python -c "import resttest; args=dict(); args['url']='$1'; args['test']='step1_metadata.yaml'; args['log']='$LOGGING_LEVEL'; args['interactive']=$INTERACTIVE; args['print_bodies']=$INTERACTIVE; resttest.main(args)" 2>&1
+python -c "import resttest; args=dict(); args['url']='$1'; args['test']='step2_data.yaml'; args['log']='$LOGGING_LEVEL'; args['interactive']=$INTERACTIVE; args['print_bodies']=$INTERACTIVE; resttest.main(args)" 2>&1
+python -c "import resttest; args=dict(); args['url']='$1'; args['test']='step3_metadata_teardown.yaml'; args['log']='$LOGGING_LEVEL'; args['interactive']=$INTERACTIVE; args['print_bodies']=$INTERACTIVE; resttest.main(args)" 2>&1
 
 #unset ENTITY_NAME
 #unset ENTITY_VERSION_1
