@@ -7,11 +7,11 @@
 ---
 - config:
     - testset: "Metadata: Teardown"
-    - certificate_path: "../../../lb-load-client.pem"
+    - certificate_path: "/opt/loadtests/repositories/lb-load-client.pem"
 
 - test:
     - name: "Delete Entity (fail)"
-    - url: "/metadata/${ENTITY_NAME}"
+    - url: "/${ENTITY_NAME}"
     - method: DELETE
     - headers: {Content-Type: application/json}
     - group: "metadata/DELETE"
@@ -22,7 +22,7 @@
 
 - test:
     - name: "Disable ${ENTITY_VERSION_1}"
-    - url: "/metadata/${ENTITY_NAME}/${ENTITY_VERSION_1}/disabled?comment=teardown"
+    - url: "/${ENTITY_NAME}/${ENTITY_VERSION_1}/disabled?comment=teardown"
     - method: PUT
     - headers: {Content-Type: application/json}
     - group: "metadata/DELETE"
@@ -33,7 +33,7 @@
 
 - test:
     - name: "Clear default version"
-    - url: "/metadata/${ENTITY_NAME}/default"
+    - url: "/${ENTITY_NAME}/default"
     - method: DELETE
     - group: "metadata/DELETE"
     - validators:
@@ -42,7 +42,7 @@
 
 - test:
     - name: "Disable ${ENTITY_VERSION_2}"
-    - url: "/metadata/${ENTITY_NAME}/${ENTITY_VERSION_2}/disabled?comment=teardown"
+    - url: "/${ENTITY_NAME}/${ENTITY_VERSION_2}/disabled?comment=teardown"
     - method: PUT
     - headers: {Content-Type: application/json}
     - group: "metadata/DELETE"
@@ -53,14 +53,14 @@
 
 - test:
     - name: "Delete Entity (succeed)"
-    - url: "/metadata/${ENTITY_NAME}"
+    - url: "/${ENTITY_NAME}"
     - method: DELETE
     - headers: {Content-Type: application/json}
     - group: "metadata/DELETE"
 
 - test: 
     - name: "Verify deletion"
-    - url: "/metadata/${ENTITY_NAME}"
+    - url: "/${ENTITY_NAME}"
     - method: GET
     - headers: {Content-Type: application/json}
     - group: "metadata/GET"

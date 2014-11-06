@@ -9,7 +9,7 @@
     - testset: "CRUD Test: Setup"
     - headers: {Content-Type: application/json}
     - validator_query_delimiter: "."
-    - certificate_path: "../../../lb-load-client.pem"
+    - certificate_path: "/opt/loadtests/repositories/lb-load-client.pem"
 
 - test: # verify entity exists
     - name: "Verify Entity: /metadata/entity/version"
@@ -23,7 +23,7 @@
 
 - test:
     - name: "Create Entities"
-    - url: "/data/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: PUT
     - headers: {Content-Type: application/json}
     - group: "crud/PUT"

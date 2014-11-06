@@ -9,11 +9,11 @@
     - testset: "CRUD Test: Find with POST"
     - headers: {Content-Type: application/json}
     - validator_query_delimiter: "."
-    - certificate_path: "../../../lb-load-client.pem"
+    - certificate_path: "/opt/loadtests/repositories/lb-load-client.pem"
 
 - test:
     - name: "Find"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
@@ -40,7 +40,7 @@
 
 - test:
     - name: "Find with Projection: Basic"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
@@ -66,7 +66,7 @@
 
 - test:
     - name: "Find with Projection: All Site Elements"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
@@ -92,7 +92,7 @@
 
 - test:
     - name: "Find with Projection: All Site Elements and First Level Content"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
@@ -118,7 +118,7 @@
 
 - test:
     - name: "Find with Projection: All Sites Recursively"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
@@ -148,7 +148,7 @@
 
 - test:
     - name: "Usages of the First Site"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
@@ -176,7 +176,7 @@
 
 - test:
     - name: "First Usages of All Sites"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
@@ -204,7 +204,7 @@
 
 - test:
     - name: "All NC Users Sorted by Login: Ascending"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
@@ -225,7 +225,7 @@
 
 - test:
     - name: "All NC Users Sorted by Login: Descending"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"

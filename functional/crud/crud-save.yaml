@@ -9,11 +9,11 @@
     - testset: "CRUD Test: Save then Update"
     - headers: {Content-Type: application/json}
     - validator_query_delimiter: "."
-    - certificate_path: "../../../lb-load-client.pem"
+    - certificate_path: "/opt/loadtests/repositories/lb-load-client.pem"
 
 - test:
     - name: "Save: fetch _id for save"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=_id:1"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=_id:1"
     - method: GET
     - headers: {Content-Type: application/json}
     - group: "crud/find/GET"
@@ -27,7 +27,7 @@
 
 - test:
     - name: "Save: change firstName and allowEmailContact"
-    - url: "/data/save/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/save/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/save/POST"
@@ -42,7 +42,7 @@
 
 - test:
     - name: "Verify Save"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar"
     - method: GET
     - headers: {Content-Type: application/json}
     - group: "crud/find/GET"
@@ -58,7 +58,7 @@
 
 - test:
     - name: "Update allowEmailContact"
-    - url: "/data/update/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/update/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/update/POST"
@@ -78,7 +78,7 @@
 
 - test:
     - name: "Verify update allowEmailContact"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar"
     - method: GET
     - headers: {Content-Type: application/json}
     - group: "crud/find/GET"
@@ -93,7 +93,7 @@
 
 - test:
     - name: "Update: remove array element"
-    - url: "/data/update/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/update/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/update/POST"
@@ -116,7 +116,7 @@
 
 - test:
     - name: "Save: reset state for next test"
-    - url: "/data/save/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/save/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/save/POST"
@@ -131,7 +131,7 @@
 
 - test:
     - name: "Find: verify state"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar"
     - method: GET
     - headers: {Content-Type: application/json}
     - group: "crud/find/GET"
@@ -151,7 +151,7 @@
 
 - test:
     - name: "Update: inactive non-default site"
-    - url: "/data/update/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/update/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/update/POST"
@@ -179,7 +179,7 @@
 
 - test:
     - name: "Update: delete inactive sites"
-    - url: "/data/update/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/update/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/update/POST"
@@ -204,7 +204,7 @@
 
 - test:
     - name: "Update: add new empty site"
-    - url: "/data/update/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/update/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/update/POST"
@@ -228,7 +228,7 @@
 
 - test:
     - name: "Update: delete user"
-    - url: "/data/delete/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/delete/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/delete/POST"
@@ -245,7 +245,7 @@
 
 - test:
     - name: "Find: verify delete"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar"
     - method: GET
     - headers: {Content-Type: application/json}
     - group: "crud/find/GET"

@@ -9,11 +9,11 @@
     - testset: "CRUD Test: Find with POST"
     - headers: {Content-Type: application/json}
     - validator_query_delimiter: "."
-    - certificate_path: "../../../lb-load-client.pem"
+    - certificate_path: "/opt/loadtests/repositories/lb-load-client.pem"
 
 - test:
     - name: "Find: eq or not eq"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
@@ -36,7 +36,7 @@
 
 - test:
     - name: "Find: regex not find anything"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
@@ -56,7 +56,7 @@
 
 - test:
     - name: "Find: regex case insensitive"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
@@ -76,7 +76,7 @@
 
 - test:
     - name: "Find: field as rvalue"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
@@ -97,7 +97,7 @@
 
 - test:
     - name: "Find: array search" # users with active sites, list only active sites
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
@@ -121,7 +121,7 @@
 
 - test:
     - name: "Find: complex projection, a few fields"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
@@ -146,7 +146,7 @@
 
 - test:
     - name: "Find: complex projection, exclude some personalInfo"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
@@ -171,7 +171,7 @@
 
 - test:
     - name: "Find: complex projection, exclude sites"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
@@ -195,7 +195,7 @@
 
 - test:
     - name: "Find: complex projection, arrays"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
@@ -217,7 +217,7 @@
 
 - test:
     - name: "Find: complex projection, only active sites"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"
@@ -240,7 +240,7 @@
 
 - test:
     - name: "Find: complex projection, only default sites"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
     - group: "crud/find/POST"

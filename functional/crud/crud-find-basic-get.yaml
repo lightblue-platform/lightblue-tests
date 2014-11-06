@@ -9,11 +9,11 @@
     - testset: "CRUD Test: Find with GET"
     - headers: {Content-Type: application/json}
     - validator_query_delimiter: "."
-    - certificate_path: "../../../lb-load-client.pem"
+    - certificate_path: "/opt/loadtests/repositories/lb-load-client.pem"
 
 - test:
     - name: "Simple Find"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar"
     - method: GET
     - headers: {Content-Type: application/json}
     - group: "crud/find/GET"
@@ -35,7 +35,7 @@
 
 - test:
     - name: "Simple Find with Projection: Basic"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites:1,sites%23:1"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites:1,sites%23:1"
     - method: GET
     - headers: {Content-Type: application/json}
     - group: "crud/find/GET"
@@ -56,7 +56,7 @@
 
 - test:
     - name: "Simple Find with Projection: All Site Elements"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites.*:1,sites%23:1"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites.*:1,sites%23:1"
     - method: GET
     - headers: {Content-Type: application/json}
     - group: "crud/find/GET"
@@ -77,7 +77,7 @@
 
 - test:
     - name: "Simple Find with Projection: All Site Elements and First Level Content"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites.*.*:1,sites%23:1"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites.*.*:1,sites%23:1"
     - method: GET
     - headers: {Content-Type: application/json}
     - group: "crud/find/GET"
@@ -98,7 +98,7 @@
 
 - test:
     - name: "Simple Find with Projection: All Sites Recursively"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites.*:1r,sites%23:1"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites.*:1r,sites%23:1"
     - method: GET
     - headers: {Content-Type: application/json}
     - group: "crud/find/GET"
@@ -123,7 +123,7 @@
 
 - test:
     - name: "Usages of the First Site"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites.0.usages.*:1r,sites%23:1"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites.0.usages.*:1r,sites%23:1"
     - method: GET
     - headers: {Content-Type: application/json}
     - group: "crud/find/GET"
@@ -146,7 +146,7 @@
 
 - test:
     - name: "First Usages of All Sites"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites%23:1,sites.*.usages.0.*:1r"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites%23:1,sites.*.usages.0.*:1r"
     - method: GET
     - headers: {Content-Type: application/json}
     - group: "crud/find/GET"
@@ -169,7 +169,7 @@
 
 - test:
     - name: "All NC Users Sorted by Login: Ascending"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=sites.*.streetAddress.state:NC&P=login:1&S=login:a&from=0&to=10"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=sites.*.streetAddress.state:NC&P=login:1&S=login:a&from=0&to=10"
     - method: GET
     - headers: {Content-Type: application/json}
     - group: "crud/find/GET"
@@ -183,7 +183,7 @@
 
 - test:
     - name: "All NC Users Sorted by Login: Descending"
-    - url: "/data/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=sites.*.streetAddress.state:NC&P=login:1&S=login:d&from=0&to=10"
+    - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=sites.*.streetAddress.state:NC&P=login:1&S=login:d&from=0&to=10"
     - method: GET
     - headers: {Content-Type: application/json}
     - group: "crud/find/GET"
