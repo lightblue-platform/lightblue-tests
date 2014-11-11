@@ -9,6 +9,16 @@
     - testset: "Metadata: Teardown"
     - certificate_path: "/opt/loadtests/repositories/lb-load-client.pem"
 
+- test: # verify entity exists
+    - name: "Verify Entity: /metadata/entity/version"
+    - url: "/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: GET
+    - headers: {Content-Type: application/json}
+    - group: "metadata/GET"
+    - stop_on_failure: True
+    - validators:
+        - {query: "objectType", operator: "empty", expected: ""}
+
 - test:
     - name: "Delete Entity (fail)"
     - url: "/${ENTITY_NAME}"

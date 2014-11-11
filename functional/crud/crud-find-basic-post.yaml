@@ -19,21 +19,21 @@
     - group: "crud/find/POST"
     - body: '{
         "objectType":"${ENTITY_NAME}",
-        "returning": { "field":"*","recursive":1},
+        "projection": { "field":"*","recursive":1},
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
     - validators:
         - {query: "status", operator: "eq", expected: "COMPLETE"}
         - {query: "modifiedCount", operator: "eq", expected: 0}
         - {query: "matchCount", operator: "eq", expected: 1}
-        - {query: "processed._id", operator: "exists", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {query: "processed.password", operator: "exists", expected: ""}
-        - {query: "processed.contactPermissions", operator: "exists", expected: ""}
-        - {query: "processed.personalInfo", operator: "exists", expected: ""}
+        - {query: "processed.0._id", operator: "exists", expected: ""}
+        - {query: "processed.0.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.0.password", operator: "exists", expected: ""}
+        - {query: "processed.0.contactPermissions", operator: "exists", expected: ""}
+        - {query: "processed.0.personalInfo", operator: "exists", expected: ""}
         - {query: "processed.sites", operator: "exists", expected: ""}
-        - {query: "processed.sites", operator: "count", expected: 2}
-        - {query: "processed.sites#", operator: "eq", expected: 2}
+        - {query: "processed.0.sites", operator: "count", expected: 2}
+        - {query: "processed.0.sites#", operator: "eq", expected: 2}
         - {query: "processed.sites.0.streetAddress", operator: "exists", expected: ""}
         - {query: "processed.sites.0.contactInfo", operator: "exists", expected: ""}
         - {query: "processed.sites.0.usages", operator: "exists", expected: ""}
@@ -46,18 +46,18 @@
     - group: "crud/find/POST"
     - body: '{
         "objectType":"${ENTITY_NAME}",
-        "returning": [ { "field":"login" }, { "field":"sites" }, { "field":"sites#" } ],
+        "projection": [ { "field":"login" }, { "field":"sites" }, { "field":"sites#" } ],
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
     - validators:
         - {query: "status", operator: "eq", expected: "COMPLETE"}
         - {query: "modifiedCount", operator: "eq", expected: 0}
         - {query: "matchCount", operator: "eq", expected: 1}
-        - {query: "processed._id", operator: "empty", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {query: "processed.password", operator: "empty", expected: ""}
-        - {query: "processed.contactPermissions", operator: "empty", expected: ""}
-        - {query: "processed.personalInfo", operator: "empty", expected: ""}
+        - {query: "processed.0._id", operator: "empty", expected: ""}
+        - {query: "processed.0.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.0.password", operator: "empty", expected: ""}
+        - {query: "processed.0.contactPermissions", operator: "empty", expected: ""}
+        - {query: "processed.0.personalInfo", operator: "empty", expected: ""}
         - {query: "processed.sites", operator: "exists", expected: ""}
         - {query: "processed.sites#", operator: "gt", expected: 0}
         - {query: "processed.sites.0.streetAddress", operator: "exists", expected: ""}
@@ -72,23 +72,23 @@
     - group: "crud/find/POST"
     - body: '{
         "objectType":"${ENTITY_NAME}",
-        "returning": [ { "field":"login" }, { "field":"sites.*" }, { "field":"sites#" } ],
+        "projection": [ { "field":"login" }, { "field":"sites.*" }, { "field":"sites#" } ],
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
     - validators:
         - {query: "status", operator: "eq", expected: "COMPLETE"}
         - {query: "modifiedCount", operator: "eq", expected: 0}
         - {query: "matchCount", operator: "eq", expected: 1}
-        - {query: "processed._id", operator: "empty", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {query: "processed.password", operator: "empty", expected: ""}
-        - {query: "processed.contactPermissions", operator: "empty", expected: ""}
-        - {query: "processed.personalInfo", operator: "empty", expected: ""}
+        - {query: "processed.0._id", operator: "empty", expected: ""}
+        - {query: "processed.0.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.0.password", operator: "empty", expected: ""}
+        - {query: "processed.0.contactPermissions", operator: "empty", expected: ""}
+        - {query: "processed.0.personalInfo", operator: "empty", expected: ""}
         - {query: "processed.sites", operator: "exists", expected: ""}
         - {query: "processed.sites#", operator: "gt", expected: 0}
-        - {query: "processed.sites.0.streetAddress", operator: "empty", expected: ""}
-        - {query: "processed.sites.0.contactInfo", operator: "empty", expected: ""}
-        - {query: "processed.sites.0.usages", operator: "empty", expected: ""}
+        - {query: "processed.0.sites.0.streetAddress", operator: "empty", expected: ""}
+        - {query: "processed.0.sites.0.contactInfo", operator: "empty", expected: ""}
+        - {query: "processed.0.sites.0.usages", operator: "empty", expected: ""}
 
 - test:
     - name: "Find with Projection: All Site Elements and First Level Content"
@@ -98,18 +98,18 @@
     - group: "crud/find/POST"
     - body: '{
         "objectType":"${ENTITY_NAME}",
-        "returning": [ { "field":"login" }, { "field":"sites.*.*" }, { "field":"sites#" } ],
+        "projection": [ { "field":"login" }, { "field":"sites.*.*" }, { "field":"sites#" } ],
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
     - validators:
         - {query: "status", operator: "eq", expected: "COMPLETE"}
         - {query: "modifiedCount", operator: "eq", expected: 0}
         - {query: "matchCount", operator: "eq", expected: 1}
-        - {query: "processed._id", operator: "empty", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {query: "processed.password", operator: "empty", expected: ""}
-        - {query: "processed.contactPermissions", operator: "empty", expected: ""}
-        - {query: "processed.personalInfo", operator: "empty", expected: ""}
+        - {query: "processed.0._id", operator: "empty", expected: ""}
+        - {query: "processed.0.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.0.password", operator: "empty", expected: ""}
+        - {query: "processed.0.contactPermissions", operator: "empty", expected: ""}
+        - {query: "processed.0.personalInfo", operator: "empty", expected: ""}
         - {query: "processed.sites", operator: "exists", expected: ""}
         - {query: "processed.sites#", operator: "gt", expected: 0}
         - {query: "processed.sites.0.streetAddress", operator: "exists", expected: ""}
@@ -124,18 +124,18 @@
     - group: "crud/find/POST"
     - body: '{
         "objectType":"${ENTITY_NAME}",
-        "returning": [ { "field":"login" }, { "field":"sites.*", "recursive":"true" }, { "field":"sites#" } ],
+        "projection": [ { "field":"login" }, { "field":"sites.*", "recursive":"true" }, { "field":"sites#" } ],
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
     - validators:
         - {query: "status", operator: "eq", expected: "COMPLETE"}
         - {query: "modifiedCount", operator: "eq", expected: 0}
         - {query: "matchCount", operator: "eq", expected: 1}
-        - {query: "processed._id", operator: "empty", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {query: "processed.password", operator: "empty", expected: ""}
-        - {query: "processed.contactPermissions", operator: "empty", expected: ""}
-        - {query: "processed.personalInfo", operator: "empty", expected: ""}
+        - {query: "processed.0._id", operator: "empty", expected: ""}
+        - {query: "processed.0.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.0.password", operator: "empty", expected: ""}
+        - {query: "processed.0.contactPermissions", operator: "empty", expected: ""}
+        - {query: "processed.0.personalInfo", operator: "empty", expected: ""}
         - {query: "processed.sites", operator: "exists", expected: ""}
         - {query: "processed.sites#", operator: "gt", expected: 0}
         - {query: "processed.sites.0.streetAddress", operator: "exists", expected: ""}
@@ -154,23 +154,23 @@
     - group: "crud/find/POST"
     - body: '{
         "objectType":"${ENTITY_NAME}",
-        "returning": [ { "field":"login" }, { "field":"sites.0.usages.*", "recursive":"true" }, { "field":"sites#" } ],
+        "projection": [ { "field":"login" }, { "field":"sites.0.usages.*", "recursive":"true" }, { "field":"sites#" } ],
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
     - validators:
         - {query: "status", operator: "eq", expected: "COMPLETE"}
         - {query: "modifiedCount", operator: "eq", expected: 0}
         - {query: "matchCount", operator: "eq", expected: 1}
-        - {query: "processed._id", operator: "empty", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {query: "processed.password", operator: "empty", expected: ""}
-        - {query: "processed.contactPermissions", operator: "empty", expected: ""}
-        - {query: "processed.personalInfo", operator: "empty", expected: ""}
+        - {query: "processed.0._id", operator: "empty", expected: ""}
+        - {query: "processed.0.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.0.password", operator: "empty", expected: ""}
+        - {query: "processed.0.contactPermissions", operator: "empty", expected: ""}
+        - {query: "processed.0.personalInfo", operator: "empty", expected: ""}
         - {query: "processed.sites", operator: "exists", expected: ""}
-        - {query: "processed.sites#", operator: "gt", expected: 0}
+        - {query: "processed.0.sites#", operator: "gt", expected: 0}
         - {query: "processed.sites", operator: "count", expected: 1}
-        - {query: "processed.sites.0.streetAddress", operator: "empty", expected: ""}
-        - {query: "processed.sites.0.contactInfo", operator: "empty", expected: ""}
+        - {query: "processed.0.sites.0.streetAddress", operator: "empty", expected: ""}
+        - {query: "processed.0.sites.0.contactInfo", operator: "empty", expected: ""}
         - {query: "processed.sites.0.usages", operator: "exists", expected: ""}
         - {query: "processed.sites.0.usages.0.usage", operator: "exists", expected: ""}
 
@@ -182,22 +182,22 @@
     - group: "crud/find/POST"
     - body: '{
         "objectType":"${ENTITY_NAME}",
-        "returning": [ { "field":"login" }, { "field":"sites.*.usages.0.*", "recursive":"true" }, { "field":"sites#" } ],
+        "projection": [ { "field":"login" }, { "field":"sites.*.usages.0.*", "recursive":"true" }, { "field":"sites#" } ],
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" }
     }'
     - validators:
         - {query: "status", operator: "eq", expected: "COMPLETE"}
         - {query: "modifiedCount", operator: "eq", expected: 0}
         - {query: "matchCount", operator: "eq", expected: 1}
-        - {query: "processed._id", operator: "empty", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {query: "processed.password", operator: "empty", expected: ""}
-        - {query: "processed.contactPermissions", operator: "empty", expected: ""}
-        - {query: "processed.personalInfo", operator: "empty", expected: ""}
+        - {query: "processed.0._id", operator: "empty", expected: ""}
+        - {query: "processed.0.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.0.password", operator: "empty", expected: ""}
+        - {query: "processed.0.contactPermissions", operator: "empty", expected: ""}
+        - {query: "processed.0.personalInfo", operator: "empty", expected: ""}
         - {query: "processed.sites", operator: "exists", expected: ""}
         - {query: "processed.sites#", operator: "gt", expected: 0}
-        - {query: "processed.sites.0.streetAddress", operator: "empty", expected: ""}
-        - {query: "processed.sites.0.contactInfo", operator: "empty", expected: ""}
+        - {query: "processed.0.sites.0.streetAddress", operator: "empty", expected: ""}
+        - {query: "processed.0.sites.0.contactInfo", operator: "empty", expected: ""}
         - {query: "processed.sites.0.usages", operator: "exists", expected: ""}
         - {query: "processed.sites.0.usages", operator: "count", expected: 1}
         - {query: "processed.sites.0.usages.0.usage", operator: "exists", expected: ""}
@@ -210,7 +210,7 @@
     - group: "crud/find/POST"
     - body: '{
         "objectType":"${ENTITY_NAME}",
-        "returning": { "field":"login" },
+        "projection": { "field":"login" },
         "query":  { "field":"sites.*.streetAddress.state", "op":"$eq", "rvalue":"NC" },
         "sort": { "login":"$asc" },
         "range": [0, 10]
@@ -231,7 +231,7 @@
     - group: "crud/find/POST"
     - body: '{
         "objectType":"${ENTITY_NAME}",
-        "returning": { "field":"login" },
+        "projection": { "field":"login" },
         "query":  { "field":"sites.*.streetAddress.state", "op":"$eq", "rvalue":"NC" },
         "sort": { "login":"$desc" },
         "range": [0, 10]

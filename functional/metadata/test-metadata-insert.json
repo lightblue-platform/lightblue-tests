@@ -9,7 +9,7 @@
     ],
     "datastore": {
         "backend":"mongo",
-        "datasource": "mongodata",
+        "datasource": "${MONGO_DATASOURCE}",
         "collection": "${ENTITY_NAME}"
     }
   },

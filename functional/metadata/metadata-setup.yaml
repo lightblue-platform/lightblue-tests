@@ -9,6 +9,7 @@
     - testset: "Metadata: Setup"
     - headers: {Content-Type: application/json}
     - certificate_path: "/opt/loadtests/repositories/lb-load-client.pem"
+#    - verbose: True
 
 # Tests that do not require any specific state.
 
@@ -174,7 +175,7 @@
 - test: # make v2 default
     - name: "Update Default: v2"
     - url: "/${ENTITY_NAME}/${ENTITY_VERSION_2}/default"
-    - headers: {Content-Type: application/json}
+    - headers: {Content-Type: text/xml, Content-Length: 0} #bug on the pycurl who set both headers, specially the content-length is wrong http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
     - group: "metadata/POST"
     - method: POST
     - stop_on_failure: True

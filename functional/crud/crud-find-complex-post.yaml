@@ -19,7 +19,7 @@
     - group: "crud/find/POST"
     - body: '{
         "objectType":"${ENTITY_NAME}",
-        "returning": [ { "field":"login" }, { "field":"_id" } ],
+        "projection": [ { "field":"login" }, { "field":"_id" } ],
         "query":  { "$or": [ { "field":"login", "op":"$eq", "rvalue":"bserdar" }, { "field":"login", "op":"$neq", "rvalue":"bserdar" } ] },
         "sort": { "login":"$asc" }
     }'
@@ -42,7 +42,7 @@
     - group: "crud/find/POST"
     - body: '{
         "objectType":"${ENTITY_NAME}",
-        "returning": [ { "field":"login"}, {"field":"_id"} ],
+        "projection": [ { "field":"login"}, {"field":"_id"} ],
         "sort" : { "login":"$asc"},
         "query":  { "field":"personalInfo.firstName", "regex":"burak.*"},
         "range" : [0,10]
@@ -62,7 +62,7 @@
     - group: "crud/find/POST"
     - body: '{
         "objectType":"${ENTITY_NAME}",
-        "returning": [ { "field":"login"}, {"field":"_id"} ],
+        "projection": [ { "field":"login"}, {"field":"_id"} ],
         "sort" : { "login":"$asc"},
         "query":  { "field":"personalInfo.firstName", "regex":"burak.*", "case insensitive":1},
         "range" : [0,10]
@@ -82,7 +82,7 @@
     - group: "crud/find/POST"
     - body: '{
         "objectType":"${ENTITY_NAME}",
-        "returning": [ { "field":"login"}, {"field":"_id"} ],
+        "projection": [ { "field":"login"}, {"field":"_id"} ],
         "sort" : { "login":"$asc"},
         "query":  { "field":"personalInfo.firstName", "op":"$neq", "rfield":"sites.0.firstName"},
         "range" : [0,10]
@@ -93,7 +93,7 @@
         - {query: "matchCount", operator: "eq", expected: 1}
         - {query: "processed", operator: "exists", expected: ""}
         - {query: "processed._id", operator: "exists", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "nmalik"}
+        - {query: "processed.0.login", operator: "eq", expected: "nmalik"}
 
 - test:
     - name: "Find: array search" # users with active sites, list only active sites
@@ -103,7 +103,7 @@
     - group: "crud/find/POST"
     - body: '{
         "objectType":"${ENTITY_NAME}",
-        "returning": [ { "field":"login"}, {"field":"_id"}, {"field":"sites","project":{"field":"*"}} ],
+        "projection": [ { "field":"login"}, {"field":"_id"}, {"field":"sites","project":{"field":"*"}} ],
         "query":  { "array":"sites","elemMatch":{"field":"active","op":"$eq","rvalue":1} },
         "sort":{"login":"$asc"},
         "range" : [0,10]
@@ -127,7 +127,7 @@
     - group: "crud/find/POST"
     - body: '{
         "objectType":"${ENTITY_NAME}",
-        "returning": [ { "field":"login"}, {"field":"createdDate"},{"field":"personalInfo.*"}],
+        "projection": [ { "field":"login"}, {"field":"createdDate"},{"field":"personalInfo.*"}],
         "sort" : { "login":"$asc"},
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" },
         "range" : [0,10]
@@ -137,11 +137,11 @@
         - {query: "modifiedCount", operator: "eq", expected: 0}
         - {query: "matchCount", operator: "eq", expected: 1}
         - {query: "processed", operator: "exists", expected: ""}
-        - {query: "processed._id", operator: "empty", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.0._id", operator: "empty", expected: ""}
+        - {query: "processed.0.login", operator: "eq", expected: "bserdar"}
         - {query: "processed.createdDate", operator: "exists", expected: ""}
         - {query: "processed.personalInfo", operator: "exists", expected: ""}
-        - {query: "processed.personalInfo.firstName", operator: "eq", expected: "Burak"}
+        - {query: "processed.0.personalInfo.firstName", operator: "eq", expected: "Burak"}
         - {query: "processed.personalInfo.email", operator: "exists", expected: ""}
 
 - test:
@@ -152,7 +152,7 @@
     - group: "crud/find/POST"
     - body: '{
         "objectType":"${ENTITY_NAME}",
-        "returning": [ { "field":"login"}, {"field":"createdDate"},{"field":"personalInfo.*"},{"field":"personalInfo.email","include":false}],
+        "projection": [ { "field":"login"}, {"field":"createdDate"},{"field":"personalInfo.*"},{"field":"personalInfo.email","include":false}],
         "sort" : { "login":"$asc"},
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" },
         "range" : [0,10]
@@ -162,12 +162,12 @@
         - {query: "modifiedCount", operator: "eq", expected: 0}
         - {query: "matchCount", operator: "eq", expected: 1}
         - {query: "processed", operator: "exists", expected: ""}
-        - {query: "processed._id", operator: "empty", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {query: "processed.createdDate", operator: "exists", expected: ""}
-        - {query: "processed.personalInfo", operator: "exists", expected: ""}
-        - {query: "processed.personalInfo.firstName", operator: "eq", expected: "Burak"}
-        - {query: "processed.personalInfo.email", operator: "empty", expected: ""}
+        - {query: "processed.0._id", operator: "empty", expected: ""}
+        - {query: "processed.0.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.0.createdDate", operator: "exists", expected: ""}
+        - {query: "processed.0.personalInfo", operator: "exists", expected: ""}
+        - {query: "processed.0.personalInfo.firstName", operator: "eq", expected: "Burak"}
+        - {query: "processed.0.personalInfo.email", operator: "empty", expected: ""}
 
 - test:
     - name: "Find: complex projection, exclude sites"
@@ -177,7 +177,7 @@
     - group: "crud/find/POST"
     - body: '{
         "objectType":"${ENTITY_NAME}",
-        "returning": [ { "field":"*","recursive":1}, {"field":"sites","include":false} ],
+        "projection": [ { "field":"*","recursive":1}, {"field":"sites","include":false} ],
         "sort" : { "login":"$asc"},
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" },
         "range" : [0,10]
@@ -188,10 +188,10 @@
         - {query: "matchCount", operator: "eq", expected: 1}
         - {query: "processed", operator: "exists", expected: ""}
         - {query: "processed._id", operator: "exists", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {query: "processed.createdDate", operator: "exists", expected: ""}
-        - {query: "processed.personalInfo", operator: "exists", expected: ""}
-        - {query: "processed.sites", operator: "empty", expected: ""}
+        - {query: "processed.0.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.0.createdDate", operator: "exists", expected: ""}
+        - {query: "processed.0.personalInfo", operator: "exists", expected: ""}
+        - {query: "processed.0.sites", operator: "empty", expected: ""}
 
 - test:
     - name: "Find: complex projection, arrays"
@@ -201,7 +201,7 @@
     - group: "crud/find/POST"
     - body: '{
         "objectType":"${ENTITY_NAME}",
-        "returning": [ { "field":"login"}, {"field":"sites", "range":[0,0] } ],
+        "projection": [ { "field":"login"}, {"field":"sites", "range":[0,0] } ],
         "sort" : { "login":"$asc"},
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" },
         "range" : [0,10]
@@ -211,9 +211,9 @@
         - {query: "modifiedCount", operator: "eq", expected: 0}
         - {query: "matchCount", operator: "eq", expected: 1}
         - {query: "processed", operator: "exists", expected: ""}
-        - {query: "processed._id", operator: "empty", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {query: "processed.sites", operator: "count", expected: 1}
+        - {query: "processed.0._id", operator: "empty", expected: ""}
+        - {query: "processed.0.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.0.sites", operator: "count", expected: 1}
 
 - test:
     - name: "Find: complex projection, only active sites"
@@ -223,7 +223,7 @@
     - group: "crud/find/POST"
     - body: '{
         "objectType":"${ENTITY_NAME}",
-        "returning": [ { "field":"login"}, {"field":"sites", "match":{ "field":"active", "op":"=", "rvalue":true }, "project":{"field":"*","recursive":1} } ],
+        "projection": [ { "field":"login"}, {"field":"sites", "match":{ "field":"active", "op":"=", "rvalue":true }, "project":{"field":"*","recursive":1} } ],
         "sort" : { "login":"$asc"},
         "query":  { "field":"login", "op":"$eq", "rvalue":"nmalik" },
         "range" : [0,10]
@@ -233,10 +233,10 @@
         - {query: "modifiedCount", operator: "eq", expected: 0}
         - {query: "matchCount", operator: "eq", expected: 1}
         - {query: "processed", operator: "exists", expected: ""}
-        - {query: "processed._id", operator: "empty", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "nmalik"}
+        - {query: "processed.0._id", operator: "empty", expected: ""}
+        - {query: "processed.0.login", operator: "eq", expected: "nmalik"}
         - {query: "processed.sites", operator: "count", expected: 1}
-        - {query: "processed.sites.0.active", operator: "eq", expected: true}
+        - {query: "processed.0.sites.0.active", operator: "eq", expected: true}
 
 - test:
     - name: "Find: complex projection, only default sites"
@@ -246,7 +246,7 @@
     - group: "crud/find/POST"
     - body: '{
         "objectType":"${ENTITY_NAME}",
-        "returning": [ { "field":"login"}, {"field":"sites", "match":{ "field":"defaultSite", "op":"=", "rvalue":true }, "project":{"field":"description"} } ],
+        "projection": [ { "field":"login"}, {"field":"sites", "match":{ "field":"defaultSite", "op":"=", "rvalue":true }, "project":{"field":"description"} } ],
         "sort" : { "login":"$asc"},
         "query":  { "field":"login", "op":"$eq", "rvalue":"bserdar" },
         "range" : [0,10]
@@ -256,9 +256,9 @@
         - {query: "modifiedCount", operator: "eq", expected: 0}
         - {query: "matchCount", operator: "eq", expected: 1}
         - {query: "processed", operator: "exists", expected: ""}
-        - {query: "processed._id", operator: "empty", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.0._id", operator: "empty", expected: ""}
+        - {query: "processed.0.login", operator: "eq", expected: "bserdar"}
         - {query: "processed.sites", operator: "count", expected: 1}
-        - {query: "processed.sites.0.defaultSite", operator: "empty", expected: ""}
-        - {query: "processed.sites.0.description", operator: "eq", expected: "the default site"}
+        - {query: "processed.0.sites.0.defaultSite", operator: "empty", expected: ""}
+        - {query: "processed.0.sites.0.description", operator: "eq", expected: "the default site"}
 
