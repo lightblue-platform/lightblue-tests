@@ -11,6 +11,7 @@
     - validator_query_delimiter: "."
     - certificate_path: "/opt/loadtests/repositories/lb-load-client.pem"
 
+
 - test:
     - name: "Save: fetch _id for save"
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=_id:1"
@@ -23,7 +24,7 @@
         - {query: "modifiedCount", operator: "eq", expected: 0}
         - {query: "matchCount", operator: "eq", expected: 1}
         - {query: "processed", operator: "exists", expected: ""}
-        - {query: "processed._id", operator: "exists", expected: "", export_as: "ENTITY_ID"}
+        - {query: "processed.0._id", operator: "exists", expected: "", export_as: "ENTITY_ID"}
 
 - test:
     - name: "Save: change firstName and allowEmailContact"
@@ -51,10 +52,10 @@
         - {query: "modifiedCount", operator: "eq", expected: 0}
         - {query: "matchCount", operator: "eq", expected: 1}
         - {query: "processed", operator: "exists", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {query: "processed.personalInfo.firstName", operator: "eq", expected: "Burak Updated"}
-        - {query: "processed.contactPermissions.allowEmailContact", operator: "eq", expected: false}
-        - {query: "processed.sites", operator: "count", expected: 2}
+        - {query: "processed.0.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.0.personalInfo.firstName", operator: "eq", expected: "Burak Updated"}
+        - {query: "processed.0.contactPermissions.allowEmailContact", operator: "eq", expected: false}
+        - {query: "processed.0.sites", operator: "count", expected: 2}
 
 - test:
     - name: "Update allowEmailContact"
@@ -87,9 +88,9 @@
         - {query: "modifiedCount", operator: "eq", expected: 0}
         - {query: "matchCount", operator: "eq", expected: 1}
         - {query: "processed", operator: "exists", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "bserdar"}
-        - {query: "processed.personalInfo.firstName", operator: "eq", expected: "Burak Updated"}
-        - {query: "processed.contactPermissions.allowEmailContact", operator: "eq", expected: true}
+        - {query: "processed.0.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.0.personalInfo.firstName", operator: "eq", expected: "Burak Updated"}
+        - {query: "processed.0.contactPermissions.allowEmailContact", operator: "eq", expected: true}
 
 - test:
     - name: "Update: remove array element"
@@ -110,7 +111,7 @@
         - {query: "matchCount", operator: "eq", expected: 0}
         - {query: "processed", operator: "exists", expected: ""}
         - {query: "processed._id", operator: "exists", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.0.login", operator: "eq", expected: "bserdar"}
         - {query: "processed.sites", operator: "exists", expected: ""}
         - {query: "processed.sites", operator: "count", expected: 1}
 
@@ -141,13 +142,13 @@
         - {query: "modifiedCount", operator: "eq", expected: 0}
         - {query: "matchCount", operator: "eq", expected: 1}
         - {query: "processed", operator: "exists", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.0.login", operator: "eq", expected: "bserdar"}
         - {query: "processed.sites", operator: "exists", expected: ""}
-        - {query: "processed.sites", operator: "count", expected: 2}
-        - {query: "processed.sites.0.defaultSite", operator: "eq", expected: 1}
-        - {query: "processed.sites.0.active", operator: "eq", expected: 1}
-        - {query: "processed.sites.1.defaultSite", operator: "eq", expected: 0}
-        - {query: "processed.sites.1.active", operator: "eq", expected: 1}
+        - {query: "processed.0.sites", operator: "count", expected: 2}
+        - {query: "processed.0.sites.0.defaultSite", operator: "eq", expected: 1}
+        - {query: "processed.0.sites.0.active", operator: "eq", expected: 1}
+        - {query: "processed.0.sites.1.defaultSite", operator: "eq", expected: 0}
+        - {query: "processed.0.sites.1.active", operator: "eq", expected: 1}
 
 - test:
     - name: "Update: inactive non-default site"
@@ -168,13 +169,13 @@
         - {query: "modifiedCount", operator: "eq", expected: 1}
         - {query: "matchCount", operator: "eq", expected: 0}
         - {query: "processed", operator: "exists", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.0.login", operator: "eq", expected: "bserdar"}
         - {query: "processed.sites", operator: "exists", expected: ""}
-        - {query: "processed.sites", operator: "count", expected: 2}
-        - {query: "processed.sites.0.defaultSite", operator: "eq", expected: 1}
-        - {query: "processed.sites.0.active", operator: "eq", expected: 1}
-        - {query: "processed.sites.1.defaultSite", operator: "eq", expected: 0}
-        - {query: "processed.sites.1.active", operator: "eq", expected: 0}
+        - {query: "processed.0.sites", operator: "count", expected: 2}
+        - {query: "processed.0.sites.0.defaultSite", operator: "eq", expected: 1}
+        - {query: "processed.0.sites.0.active", operator: "eq", expected: 1}
+        - {query: "processed.0.sites.1.defaultSite", operator: "eq", expected: 0}
+        - {query: "processed.0.sites.1.active", operator: "eq", expected: 0}
 
 
 - test:
@@ -196,10 +197,10 @@
         - {query: "modifiedCount", operator: "eq", expected: 1}
         - {query: "matchCount", operator: "eq", expected: 0}
         - {query: "processed", operator: "exists", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.0.login", operator: "eq", expected: "bserdar"}
         - {query: "processed.sites", operator: "exists", expected: ""}
-        - {query: "processed.sites", operator: "count", expected: 1}
-        - {query: "processed.sites.0.active", operator: "eq", expected: 1}
+        - {query: "processed.0.sites", operator: "count", expected: 1}
+        - {query: "processed.0.sites.0.active", operator: "eq", expected: 1}
 
 
 - test:
@@ -220,11 +221,11 @@
         - {query: "modifiedCount", operator: "eq", expected: 1}
         - {query: "matchCount", operator: "eq", expected: 0}
         - {query: "processed", operator: "exists", expected: ""}
-        - {query: "processed.login", operator: "eq", expected: "bserdar"}
+        - {query: "processed.0.login", operator: "eq", expected: "bserdar"}
         - {query: "processed.sites", operator: "exists", expected: ""}
-        - {query: "processed.sites", operator: "count", expected: 2}
-        - {query: "processed.sites.0.active", operator: "eq", expected: 1}
-        - {query: "processed.sites.1", operator: "count", expected: 0}
+        - {query: "processed.0.sites", operator: "count", expected: 2}
+        - {query: "processed.0.sites.0.active", operator: "eq", expected: 1}
+        - {query: "processed.0.sites.1", operator: "empty", expected: ""}
 
 - test:
     - name: "Update: delete user"
