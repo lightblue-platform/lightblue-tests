@@ -1,0 +1,27 @@
+# Tests of crud service.
+# Notes on json validation:
+#   must supply count or expected
+#   if supply expected can optionally specify operator
+#   operator defaults to "eq", available values are: abs contains eq ge gt index inv invert le lt ne neg not pos truth
+#   operator is applied as: <actual> <operator> <expected>
+---
+- config:
+    - testset: "CRUD Test: Setup"
+    - headers: {Content-Type: application/json}
+    - validator_query_delimiter: "."
+    - certificate_path: "/opt/loadtests/repositories/lb-load-client.pem"
+
+- test:
+    - name: "Create Entities"
+    - url: "/${ENTITY_NAME}/${ENTITY_VERSION}"
+    - method: PUT
+    - headers: {Content-Type: application/json}
+    - group: "crud/PUT"
+    - stop_on_failure: True
+    - body: {file: "test-crud-insert.json"}
+    - validators:
+        - {query: "status", operator: "eq", expected: "COMPLETE"}
+        - {query: "modifiedCount", operator: "eq", expected: 2}
+        - {query: "matchCount", operator: "eq", expected: 0}
+        - {query: "processed._id", operator: "exists", expected: ""}
+

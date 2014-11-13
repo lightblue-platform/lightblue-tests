@@ -1,0 +1,31 @@
+{
+    "name": "${ENTITY_NAME}",
+    "enums": [
+        {
+            "name": "site_type_enum",
+            "values": [
+                "billing",
+                "marketing",
+                "service",
+                "shipping"
+            ]
+        }
+    ],
+    "indexes": [
+        {
+            "name": "login_ix",
+            "unique": true,
+            "fields": [
+                {
+                    "field": "login",
+                    "dir": "$asc"
+                }
+            ]
+        }
+    ],
+    "datastore": {
+        "backend": "mongo",
+        "datasource": "${MONGO_DATASOURCE}",
+        "collection": "${ENTITY_NAME}"
+    }
+}
