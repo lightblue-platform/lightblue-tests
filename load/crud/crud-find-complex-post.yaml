@@ -13,6 +13,10 @@
 
 - test:
     - name: "Find: eq or not eq"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Find:_eq_or_not_eq-{thread}.csv'
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
@@ -36,6 +40,10 @@
 
 - test:
     - name: "Find: regex not find anything"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Find:_regex_not_find_anything-{thread}.csv'
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
@@ -56,6 +64,10 @@
 
 - test:
     - name: "Find: regex case insensitive"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Find:_regex_case_insensitive-{thread}.csv'
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
@@ -76,6 +88,10 @@
 
 - test:
     - name: "Find: field as rvalue"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Find:_field_as_rvalue-{thread}.csv'
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
@@ -96,7 +112,11 @@
         - {query: "processed.0.login", operator: "eq", expected: "nmalik"}
 
 - test:
-    - name: "Find: array search" # users with active sites, list only active sites
+    - name: "Find: array search"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Find:_array_search_#_users_with_active_sites,_list_only_active_sites-{thread}.csv'
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
@@ -121,6 +141,10 @@
 
 - test:
     - name: "Find: complex projection, a few fields"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Find:_complex_projection,_a_few_fields-{thread}.csv'
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
@@ -146,6 +170,10 @@
 
 - test:
     - name: "Find: complex projection, exclude some personalInfo"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Find:_complex_projection,_exclude_some_personalInfo-{thread}.csv'
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
@@ -171,6 +199,10 @@
 
 - test:
     - name: "Find: complex projection, exclude sites"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Find:_complex_projection,_exclude_sites-{thread}.csv'
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
@@ -195,6 +227,10 @@
 
 - test:
     - name: "Find: complex projection, arrays"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Find:_complex_projection,_arrays-{thread}.csv'
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
@@ -217,6 +253,10 @@
 
 - test:
     - name: "Find: complex projection, only active sites"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Find:_complex_projection,_only_active_sites-{thread}.csv'
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}
@@ -240,6 +280,10 @@
 
 - test:
     - name: "Find: complex projection, only default sites"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Find:_complex_projection,_only_default_sites-{thread}.csv'
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: POST
     - headers: {Content-Type: application/json}

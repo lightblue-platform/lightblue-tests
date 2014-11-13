@@ -13,6 +13,10 @@
 
 - test:
     - name: "Simple Find"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Simple_Find-{thread}.csv'
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar"
     - method: GET
     - headers: {Content-Type: application/json}
@@ -35,6 +39,10 @@
 
 - test:
     - name: "Simple Find with Projection: Basic"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Simple_Find_with_Projection:_Basic-{thread}.csv'
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites:1,sites%23:1"
     - method: GET
     - headers: {Content-Type: application/json}
@@ -56,6 +64,10 @@
 
 - test:
     - name: "Simple Find with Projection: All Site Elements"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Simple_Find_with_Projection:_All_Site_Elements-{thread}.csv'
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites.*:1,sites%23:1"
     - method: GET
     - headers: {Content-Type: application/json}
@@ -77,6 +89,10 @@
 
 - test:
     - name: "Simple Find with Projection: All Site Elements and First Level Content"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Simple_Find_with_Projection:_All_Site_Elements_and_First_Level_Content-{thread}.csv'
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites.*.*:1,sites%23:1"
     - method: GET
     - headers: {Content-Type: application/json}
@@ -98,6 +114,10 @@
 
 - test:
     - name: "Simple Find with Projection: All Sites Recursively"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Simple_Find_with_Projection:_All_Sites_Recursively-{thread}.csv'
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites.*:1r,sites%23:1"
     - method: GET
     - headers: {Content-Type: application/json}
@@ -123,6 +143,10 @@
 
 - test:
     - name: "Usages of the First Site"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Usages_of_the_First_Site-{thread}.csv'
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites.0.usages.*:1r,sites%23:1"
     - method: GET
     - headers: {Content-Type: application/json}
@@ -146,6 +170,10 @@
 
 - test:
     - name: "First Usages of All Sites"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'First_Usages_of_All_Sites-{thread}.csv'
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=login:bserdar&P=login:1,sites%23:1,sites.*.usages.0.*:1r"
     - method: GET
     - headers: {Content-Type: application/json}
@@ -169,6 +197,10 @@
 
 - test:
     - name: "All NC Users Sorted by Login: Ascending"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'All_NC_Users_Sorted_by_Login:_Ascending-{thread}.csv'
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=sites.*.streetAddress.state:NC&P=login:1&S=login:a&from=0&to=10"
     - method: GET
     - headers: {Content-Type: application/json}
@@ -183,6 +215,10 @@
 
 - test:
     - name: "All NC Users Sorted by Login: Descending"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'All_NC_Users_Sorted_by_Login:_Descending-{thread}.csv'
     - url: "/find/${ENTITY_NAME}/${ENTITY_VERSION}?Q=sites.*.streetAddress.state:NC&P=login:1&S=login:d&from=0&to=10"
     - method: GET
     - headers: {Content-Type: application/json}

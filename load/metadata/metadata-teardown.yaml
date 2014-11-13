@@ -11,6 +11,10 @@
 
 - test: # verify entity exists
     - name: "Verify Entity: /metadata/entity/version"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Verify_Entity:_/metadata/entity/version-{thread}.csv'
     - url: "/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: GET
     - headers: {Content-Type: application/json}
@@ -21,6 +25,10 @@
 
 - test:
     - name: "Delete Entity (fail)"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Delete_Entity_(fail)-{thread}.csv'
     - url: "/${ENTITY_NAME}"
     - method: DELETE
     - headers: {Content-Type: application/json}
@@ -32,6 +40,10 @@
 
 - test:
     - name: "Disable ${ENTITY_VERSION_1}"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Disable_${ENTITY_VERSION_1}-{thread}.csv'
     - url: "/${ENTITY_NAME}/${ENTITY_VERSION_1}/disabled?comment=teardown"
     - method: PUT
     - headers: {Content-Type: application/json}
@@ -43,6 +55,10 @@
 
 - test:
     - name: "Clear default version"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Clear_default_version-{thread}.csv'
     - url: "/${ENTITY_NAME}/default"
     - method: DELETE
     - group: "metadata/DELETE"
@@ -52,6 +68,10 @@
 
 - test:
     - name: "Disable ${ENTITY_VERSION_2}"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Disable_${ENTITY_VERSION_2}-{thread}.csv'
     - url: "/${ENTITY_NAME}/${ENTITY_VERSION_2}/disabled?comment=teardown"
     - method: PUT
     - headers: {Content-Type: application/json}
@@ -63,6 +83,10 @@
 
 - test:
     - name: "Delete Entity (succeed)"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Delete_Entity_(succeed)-{thread}.csv'
     - url: "/${ENTITY_NAME}"
     - method: DELETE
     - headers: {Content-Type: application/json}
@@ -70,6 +94,10 @@
 
 - test: 
     - name: "Verify deletion"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Verify_deletion-{thread}.csv'
     - url: "/${ENTITY_NAME}"
     - method: GET
     - headers: {Content-Type: application/json}

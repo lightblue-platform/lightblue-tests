@@ -15,6 +15,10 @@
 
 - test: # verify get versions for invalid entity
     - name: "Invalid Entity"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Invalid_Entity-{thread}.csv'
     - url: "/ThisEntityDoesNotExist" 
     - method: GET
     - headers: {Content-Type: application/json}
@@ -26,6 +30,10 @@
 
 - test: # verify initial state, should not have any versions for the entity being tested
     - name: "Initial State"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Initial_State-{thread}.csv'
     - url: "/${ENTITY_NAME}"
     - method: GET
     - headers: {Content-Type: application/json}
@@ -37,6 +45,10 @@
 
 - test: # create entity
     - name: "Create Metadata"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Create_Metadata-{thread}.csv'
     - url: "/${ENTITY_NAME}/${ENTITY_VERSION_1}"
     - headers: {Content-Type: application/json}
     - group: "metadata/PUT"
@@ -50,6 +62,10 @@
 
 - test: # verify getting entity name list
     - name: "Verify Create: "
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Verify_Create:_-{thread}.csv'
     - url: "" 
     - headers: {Content-Type: application/json}
     - group: "metadata/GET"
@@ -62,6 +78,10 @@
 
 - test: # verify get versions for valid entity
     - name: "Verify Create: /entity"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Verify_Create:_/entity-{thread}.csv'
     - url: "/${ENTITY_NAME}"
     - headers: {Content-Type: application/json}
     - group: "metadata/GET"
@@ -71,6 +91,10 @@
 
 - test: # verify get specific version
     - name: "Verify Create: /entity/v1"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Verify_Create:_/entity/v1-{thread}.csv'
     - url: "/${ENTITY_NAME}/${ENTITY_VERSION_1}"
     - headers: {Content-Type: application/json}
     - group: "metadata/GET"
@@ -85,6 +109,10 @@
 
 - test: # create schema
     - name: "Create Schema"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Create_Schema-{thread}.csv'
     - url: "/${ENTITY_NAME}/schema=${ENTITY_VERSION_2}"
     - headers: {Content-Type: application/json}
     - group: "metadata/PUT"
@@ -98,6 +126,10 @@
 
 - test: # verify getting entity name list
     - name: "Verify Schema: "
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Verify_Schema:_-{thread}.csv'
     - url: "" 
     - headers: {Content-Type: application/json}
     - group: "metadata/GET"
@@ -109,6 +141,10 @@
 
 - test: # verify get versions for valid entity
     - name: "Verify Schema: /entity"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Verify_Schema:_/entity-{thread}.csv'
     - url: "/${ENTITY_NAME}"
     - headers: {Content-Type: application/json}
     - group: "metadata/GET"
@@ -117,6 +153,10 @@
 
 - test: # verify get specific version (v1 is still active)
     - name: "Verify Schema: /entity/v1"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Verify_Schema:_/entity/v1-{thread}.csv'
     - url: "/${ENTITY_NAME}/${ENTITY_VERSION_1}"
     - headers: {Content-Type: application/json}
     - group: "metadata/GET"
@@ -128,6 +168,10 @@
 
 - test: # verify get specific version (v2 exists and is active)
     - name: "Verify Schema: /entity/v2"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Verify_Schema:_/entity/v2-{thread}.csv'
     - url: "/${ENTITY_NAME}/${ENTITY_VERSION_2}"
     - headers: {Content-Type: application/json}
     - group: "metadata/GET"
@@ -141,6 +185,10 @@
 
 - test: # verify has no index initially
     - name: "Verify Index Missing"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Verify_Index_Missing-{thread}.csv'
     - url: "/${ENTITY_NAME}/${ENTITY_VERSION_2}"
     - headers: {Content-Type: application/json}
     - group: "metadata/GET"
@@ -151,6 +199,10 @@
 
 - test: # add index
     - name: "Add Index"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Add_Index-{thread}.csv'
     - url: "/${ENTITY_NAME}"
     - headers: {Content-Type: application/json}
     - group: "metadata/PUT"
@@ -160,6 +212,10 @@
 
 - test: # verify has index after update
     - name: "Verify Index Added"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Verify_Index_Added-{thread}.csv'
     - url: "/${ENTITY_NAME}/${ENTITY_VERSION_2}"
     - headers: {Content-Type: application/json}
     - group: "metadata/GET"
@@ -174,6 +230,10 @@
 
 - test: # make v2 default
     - name: "Update Default: v2"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Update_Default:_v2-{thread}.csv'
     - url: "/${ENTITY_NAME}/${ENTITY_VERSION_2}/default"
     - headers: {Content-Type: text/xml, Content-Length: 0} #bug on the pycurl who set both headers, specially the content-length is wrong http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
     - group: "metadata/POST"
@@ -188,6 +248,10 @@
 
 - test: # do deprecation
     - name: "Deprecate: v1"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Deprecate:_v1-{thread}.csv'
     - url: "/${ENTITY_NAME}/${ENTITY_VERSION_1}/deprecated?comment=testing+deprecation"
     - headers: {Content-Type: application/json}
     - group: "metadata/PUT"
@@ -200,6 +264,10 @@
         - {query: "schema/status/log/0/comment", operator: "eq", expected: "testing deprecation"}
 - test: # verify find gets same deprecated version
     - name: "Verify Deprecation: v1"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Verify_Deprecation:_v1-{thread}.csv'
     - url: "/${ENTITY_NAME}/${ENTITY_VERSION_1}"
     - headers: {Content-Type: application/json}
     - group: "metadata/GET"
@@ -214,6 +282,10 @@
 
 - test: # do disabling
     - name: "Disable: v1"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Disable:_v1-{thread}.csv'
     - url: "/${ENTITY_NAME}/${ENTITY_VERSION_1}/disabled?comment=testing+disabled"
     - headers: {Content-Type: application/json}
     - group: "metadata/PUT"
@@ -227,6 +299,10 @@
         - {query: "schema/status/log/1/comment", operator: "eq", expected: "testing disabled"}
 - test: # verify find gets same disabled version
     - name: "Verify Disabled: v1"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Verify_Disabled:_v1-{thread}.csv'
     - url: "/${ENTITY_NAME}/${ENTITY_VERSION_1}"
     - headers: {Content-Type: application/json}
     - group: "metadata/GET"

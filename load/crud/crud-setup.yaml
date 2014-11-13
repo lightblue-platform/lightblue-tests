@@ -13,6 +13,10 @@
 
 - test:
     - name: "Create Entities"
+    - metrics: {namelookup_time, connect_time, appconnect_time, pretransfer_time, starttransfer_time, redirect_time, total_time, size_download, size_upload, request_size, speed_download, speed_upload, redirect_count, num_connects }
+    - warmup_runs: 0
+    - benchmark_runs: 1
+    - output_file: 'Create_Entities-{thread}.csv'
     - url: "/${ENTITY_NAME}/${ENTITY_VERSION}"
     - method: PUT
     - headers: {Content-Type: application/json}
