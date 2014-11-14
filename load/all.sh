@@ -29,7 +29,7 @@ export ENTITY_VERSION_2="2.0.0"
 export ENTITY_VERSION="${ENTITY_VERSION_2}"
 
 if [ "x$LOAD_PROCESSES" == "x" ]; then
-   LOAD_PROCESSES=10
+   LOAD_PROCESSES=3
 fi
 
 echo "Running tests for new entity: $ENTITY_NAME"
