@@ -18,7 +18,7 @@ LOGGING_LEVEL="debug"
 if [ "x$3" != "x" ]; then
     LOGGING_LEVEL=$3
 fi
-export ENTITY_NAME="nmalik-$(date +'%Y%m%d%H%M%S')";
+export ENTITY_NAME="nmalik-$(date +'%Y%m%d%H%M%S'){thread}";
 export MONGO_DATASOURCE="mongo";
 
 # Metadata:

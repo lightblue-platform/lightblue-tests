@@ -29,7 +29,7 @@ export ENTITY_VERSION_2="2.0.0"
 export ENTITY_VERSION="${ENTITY_VERSION_2}"
 
 if [ "x$LOAD_PROCESSES" == "x" ]; then
-   LOAD_PROCESSES=3
+   LOAD_PROCESSES=2
 fi
 
 echo "Running tests for new entity: $ENTITY_NAME"
@@ -42,7 +42,7 @@ wait
 
 for i in $(seq 1 1 $LOAD_PROCESSES)
 do
-   python -c "import resttest; args=dict(); args['url']='$1'; args['test']='step2_data.yaml'; args['log']='$LOGGING_LEVEL'; args['interactive']=$INTERACTIVE; args['print_bodies']=$INTERACTIVE;args['threads']=5;args['rampup']=0;args['switch_tests_to_benchmark']=True; args['thread_name']='Thread-$i'; resttest.main(args)" 2>&1  &
+   python -c "import resttest; args=dict(); args['url']='$1'; args['test']='step2_data.yaml'; args['log']='$LOGGING_LEVEL'; args['interactive']=$INTERACTIVE; args['print_bodies']=$INTERACTIVE;args['threads']=1;args['rampup']=0;args['switch_tests_to_benchmark']=True; args['thread_name']='Thread-$i'; resttest.main(args)" 2>&1  &
 done
 wait
 
