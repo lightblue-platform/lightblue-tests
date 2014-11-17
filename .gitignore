@@ -1,3 +1,10 @@
 *.log
 out
 *~
+load/files
+load/resolve
+load/failures
+load/.RData
+load/.Rhistory
+load/boxplot.svg
+load/hist.svg
