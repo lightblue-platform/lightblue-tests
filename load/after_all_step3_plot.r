@@ -5,23 +5,24 @@ pathIn<-args[1]
 pathOut<-args[2]
 specific<-args[3]
 
-if(missing(pathIn) && ! is.na(pathIn)){
+if(missing(pathIn) || is.na(pathIn)){
     pathIn <- "files/all.csv"
+    result <- read.csv(pathIn,header=TRUE)
+}else{
+    filenames=list.files(path=pathIn, full.names=TRUE)
+    #print(str(filenames))
+    datalist = lapply(filenames, function(x){read.csv(file=x,header=TRUE)})
+    result=Reduce(function(x,y) {merge(x,y,all=TRUE)}, datalist)
 }
 
-if(missing(pathOut) && ! is.na(pathOut)){
+if(missing(pathOut) ||  is.na(pathOut)){
     pathOut <- ""
 }
 
-filenames=list.files(path=pathIn, full.names=TRUE)
-print(str(filenames))
-datalist = lapply(filenames, function(x){read.csv(file=x,header=TRUE)})
-result=Reduce(function(x,y) {merge(x,y,all=TRUE)}, datalist)
 v <- result
 #print(str(v))
 #summary(v)
-
-#options(error=function()traceback(2)
+options(error=function()traceback(2))
 
 isSpec <-! missing(specific) && ! is.na(specific)
 if(isSpec){
