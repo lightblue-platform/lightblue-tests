@@ -8,3 +8,5 @@ load/.RData
 load/.Rhistory
 load/boxplot.svg
 load/hist.svg
+.idea
+load/.idea

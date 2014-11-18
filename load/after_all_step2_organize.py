@@ -26,10 +26,10 @@ if not os.path.exists(outDirectory):
 fResolve = None
 if not os.path.isfile(resolveFile):
     fResolve = open(resolveFile,"w")
-    fResolve.write("Random,Host,Time\n")
+    fResolve.write("Random,Host,Time")
 else:
     fResolve = open(resolveFile,"a+")
-fResolve.write(rndm+","+hostname+","+tm)
+fResolve.write("\n"+rndm+","+hostname+","+tm)
 
 fAll = None
 if not os.path.isfile(allFile):

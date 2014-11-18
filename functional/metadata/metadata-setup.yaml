@@ -147,7 +147,7 @@
     - method: GET
     - validators: # operator is applied as: <actual> <operator> <expected>
         - {query: "entityInfo/name", operator: "eq", expected: "${ENTITY_NAME}"}
-        - {query: "entityInfo/indexes", operator: "empty", expected: ""}
+        - {query: "entityInfo/indexes", operator: "count", expected: 1}
 
 - test: # add index
     - name: "Add Index"
@@ -167,7 +167,7 @@
     - validators: # operator is applied as: <actual> <operator> <expected>
         - {query: "entityInfo/name", operator: "eq", expected: "${ENTITY_NAME}"}
         - {query: "entityInfo/defaultVersion", operator: "empty", expected: ""}
-        - {query: "entityInfo/indexes", operator: "count", expected: 1}
+        - {query: "entityInfo/indexes", operator: "count", expected: 2}
 
 # Test default functionality
 # NOTE previous tests must have verified that each version is NOT default
@@ -175,7 +175,8 @@
 - test: # make v2 default
     - name: "Update Default: v2"
     - url: "/${ENTITY_NAME}/${ENTITY_VERSION_2}/default"
-    - headers: {Content-Type: text/xml, Content-Length: 0} #bug on the pycurl who set both headers, specially the content-length is wrong http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
+    - headers: {Content-Type: application/json}
+    - body: '{}'
     - group: "metadata/POST"
     - method: POST
     - stop_on_failure: True

@@ -31,7 +31,7 @@ export ENTITY_VERSION="${ENTITY_VERSION_2}"
 if [ "x$LOAD_PROCESSES" == "x" ]; then
    LOAD_PROCESSES=2
 fi
-
+date1=$(date +"%s")
 echo "Running tests for new entity: $ENTITY_NAME"
 
 for i in $(seq 1 1 $LOAD_PROCESSES)
@@ -56,5 +56,7 @@ wait
 #unset ENTITY_NAME
 #unset ENTITY_VERSION_1
 #unset ENTITY_VERSION_2
-
+date2=$(date +"%s")
+diff=$(($date2-$date1))
+echo "$(($diff / 60)) minutes and $(($diff % 60)) seconds elapsed."
 
