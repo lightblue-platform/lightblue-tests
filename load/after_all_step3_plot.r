@@ -5,7 +5,7 @@ pathIn<-args[1]
 pathOut<-args[2]
 specific<-args[3]
 
-if(missing(pathIn) || is.na(pathIn)|| pathIn == "" || pathIn == character(0) ){
+if(missing(pathIn) || is.na(pathIn)|| pathIn == ""  ){
     pathIn <- "files/all.csv"
     result <- read.csv(pathIn,header=TRUE)
 }else{
